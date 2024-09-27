@@ -12,17 +12,44 @@ const GenerateQuestion = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [conversations, setConversations] = useState([]);
+
   return (
     <div className="flex items-center justify-center h-screen w-full poppins">
       {loading ? (
         <GenerateLoadingScreen />
       ) : (
         <GenerateHome
-          onClick={() => {
+          conversations={conversations}
+          onClick={(question) => {
+            setConversations((convs) => [...convs, question]);
+
+            setTimeout(() => {
+              setConversations((convs) => [
+                ...convs,
+                {
+                  type: "ANSWER",
+                  message:
+                    "I recommend you take a small test for 5 questions to help you progress...",
+                  actions: [
+                    {
+                      title: "Take Test",
+                      link: "/generate-test",
+                    },
+                    {
+                      title: "Refer notes",
+                      link: "/curriculum",
+                    },
+                  ],
+                },
+              ]);
+            }, 3000);
+          }}
+          onEventClick={() => {
             setLoading(true);
 
             setTimeout(() => {
-              navigate('/questions')
+              navigate("/questions");
             }, 3000);
           }}
         />
