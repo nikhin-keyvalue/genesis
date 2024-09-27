@@ -5,6 +5,7 @@ import Home from "./pages/home";
 import GenerateQuestion from "./pages/generate";
 import Questions from "./pages/questions";
 import Onboarding from "./pages/onboarding";
+import Insights from "./pages/insights";
 
 import "./App.css";
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/generate-test" element={<GenerateQuestion />} />
         <Route path="/questions" element={<Questions />} />
         <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/insights" element={<Insights />} />
       </Routes>
     </Layout>
   );
