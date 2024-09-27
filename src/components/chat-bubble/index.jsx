@@ -30,7 +30,12 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
       }, 20);
     }
 
-    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
 
     return () => clearTimeout(timeout);
   }, [currentIndex, message, isTyping, scrollRef]);
@@ -58,10 +63,14 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
   );
 };
 
-const LoadingChat = ({ message, time }) => (
-  <div className="bg-[#262626]">
-    <p>{message}</p>
-    <p>{time}</p>
+const LoadingChat = () => (
+  <div className="w-full flex flex-col items-start">
+    <div className="w-[80px] flex flex-col items-start">
+      <div className="bg-[#282828] py-2 px-4 flex items-center rounded-lg">
+        <img src="ai.png" alt="AI" width="12px" height="12px" />
+        <p className="text-[#EAE8E1] font-medium text-sm m-1">M</p>
+      </div>
+    </div>
   </div>
 );
 
@@ -80,7 +89,7 @@ const ChatBubble = ({ chat, onEventClick, scrollRef }) => {
         />
       );
     case "LOADING":
-      return <LoadingChat message={chat.message} time={chat.time} />;
+      return <LoadingChat />;
     default:
       return null;
   }

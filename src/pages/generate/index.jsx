@@ -23,8 +23,15 @@ const GenerateQuestion = () => {
           conversations={conversations}
           onClick={(question) => {
             setConversations((convs) => [...convs, question]);
+            setConversations((convs) => [
+              ...convs,
+              {
+                type: "LOADING",
+              },
+            ]);
 
             setTimeout(() => {
+              setConversations((convs) => [...convs].slice(0, -1));
               setConversations((convs) => [
                 ...convs,
                 {
@@ -34,7 +41,7 @@ const GenerateQuestion = () => {
                   actions: [
                     {
                       title: "Take Test",
-                      link: "/generate-test",
+                      link: "/questions",
                     },
                     {
                       title: "Refer notes",
