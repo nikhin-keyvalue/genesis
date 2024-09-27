@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+import Latex from "react-latex-next";
 
 const SendChatBubble = ({ message, time }) => (
   <div className="w-full flex flex-col items-end ">
@@ -43,7 +44,9 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
   return (
     <div className="w-full flex flex-col items-start">
       <div className="max-w-[90%] flex flex-col items-start ">
-        <div className="text-[#EAE8E1] text-base">{currentText}</div>
+        <div className="text-[#EAE8E1] text-base">
+          <Latex>{currentText}</Latex>
+        </div>
         {!!actions?.length && !isTyping && (
           <div className="flex items-center gap-2 mt-3">
             {actions?.map((action) => (

@@ -96,7 +96,7 @@ const Chat = ({ questionWithAnswer }) => {
         <div className="text-sm text-[#a89b94] mt-1 ml-[36px]">Chat away!</div>
       </div>
 
-      <div className="p-5 bg-[rgba(17,17,17,1)] mb-2 rounded-lg text-sm">
+      <div className="p-5 bg-[rgba(17,17,17,1)] mb-2 rounded-lg text-sm backdrop-blur-lg">
         {questionWithAnswer.question}
       </div>
 
