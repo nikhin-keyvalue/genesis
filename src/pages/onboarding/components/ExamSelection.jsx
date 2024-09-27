@@ -1,6 +1,13 @@
+import { useEffect, useState } from "react";
 import ExamCards from "./ExamCards";
 
-const ExamSelection = (props) => {
+const ExamSelection = ({ handleInputChange }) => {
+  const [exam, setExam] = useState("");
+
+  useEffect(() => {
+    handleInputChange(exam, "exam");
+  }, [exam]);
+
   return (
     <div className="flex justify-between  h-full w-full items-center  p-10 justify-between pb-2">
       <div className="h-full w-full flex flex-col justify-between">
@@ -21,7 +28,7 @@ const ExamSelection = (props) => {
           </div>
         </div>
       </div>
-      <ExamCards {...props} />
+      <ExamCards exam={exam} setExam={setExam} />
     </div>
   );
 };

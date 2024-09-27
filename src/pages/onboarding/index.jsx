@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Features from "./components/Features";
 import { Button } from "../../components/button";
 import ExamSelection from "./components/ExamSelection";
@@ -10,16 +10,23 @@ import { useNavigate } from "react-router-dom";
 
 const Onboarding = () => {
   const navigate = useNavigate();
-  const [createUser] = useCreateUserMutation();
+  const [createUser, { data, isSuccess, isLoading }] = useCreateUserMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/generate-test");
+      localStorage.setItem("userDetails", JSON.stringify(data));
+    }
+  }, [isSuccess]);
 
   const [step, setStep] = useState(1);
-  const [selectedExam, setSelectedExam] = useState("");
 
   const [formData, setFormData] = useState({
     name: "Amith Kumar",
     proficiency: "NOVICE",
     institution: "",
     expectedRank: 600,
+    exam: "",
   });
 
   const handleInputChange = (e, name) => {
@@ -38,12 +45,11 @@ const Onboarding = () => {
   };
 
   const onGetStartedClick = () => {
-    createUser({
-      phone: localStorage.getItem("phoneNumber"),
-      exam: selectedExam,
-      ...formData,
-    });
-    navigate("/generate-test");
+    if (!isLoading)
+      createUser({
+        phone: localStorage.getItem("phoneNumber"),
+        ...formData,
+      });
   };
 
   return (
@@ -64,10 +70,7 @@ const Onboarding = () => {
         <div className="h-full">
           {step === 1 && <Features />}
           {step === 2 && (
-            <ExamSelection
-              setSelectedExam={setSelectedExam}
-              selectedExam={selectedExam}
-            />
+            <ExamSelection handleInputChange={handleInputChange} />
           )}
           {step === 3 && <UserForm handleInputChange={handleInputChange} />}
           {step === 4 && <StartLearning />}

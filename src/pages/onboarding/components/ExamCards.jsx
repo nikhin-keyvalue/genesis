@@ -1,24 +1,28 @@
 const examCards = [
   {
     name: "JEE Mains",
+    key: "JEE",
     difficulty: "MEDIUM",
     resources: "40K+  Resources",
     image: "/placeholder.svg?height=200&width=300",
   },
   {
     name: "GATE",
+    key: "GATE",
     difficulty: "HARD",
     resources: "40K+  Resources",
     image: "/placeholder.svg?height=200&width=300",
   },
   {
     name: "CAT",
+    key: "CAT",
     difficulty: "HARD",
     resources: "40K+  Resources",
     image: "/placeholder.svg?height=200&width=300",
   },
   {
     name: "KEAM",
+    key: "KEAM",
     difficulty: "MEDIUM",
     resources: "40K+  Resources",
     image: "/placeholder.svg?height=200&width=300",
@@ -36,7 +40,7 @@ function Card({ children, onClick, data, selectedExam }) {
     <div className="relative h-full">
       <div
         className={`h-full overflow-hidden rounded-lg bg-cover bg-center bg-no-repeat bg-[url('examcardbg.png')] border border-[#EAE8E11A] rounded-[23px] cursor-pointer ${
-          data.name !== selectedExam
+          data.key !== selectedExam
             ? "border-[#EAE8E11A]"
             : "border-[#DE532766]"
         }`}
@@ -44,7 +48,7 @@ function Card({ children, onClick, data, selectedExam }) {
       >
         {children}
       </div>
-      {selectedExam === data.name && (
+      {selectedExam === data.key && (
         <div className="h-[32px] w-[32px] bg-[#DE5327] absolute top-[16px] right-[16px] flex items-center justify-center rounded-[50%]">
           <img src="tick.png" />
         </div>
@@ -73,7 +77,7 @@ function Input({ placeholder }) {
   );
 }
 
-export default function ExamCards({ setSelectedExam, selectedExam }) {
+export default function ExamCards({ setExam, exam }) {
   return (
     <div className=" w-full h-full max-w-4xl mx-auto p-6  text-white">
       <div className="flex justify-between items-center mb-6">
@@ -88,10 +92,10 @@ export default function ExamCards({ setSelectedExam, selectedExam }) {
           <Card
             key={index}
             onClick={() => {
-              setSelectedExam(card.name);
+              setExam(card.key);
             }}
             data={card}
-            selectedExam={selectedExam}
+            selectedExam={exam}
           >
             <CardContent>
               <div className="flex flex-col justify-between items-start mb-2">
