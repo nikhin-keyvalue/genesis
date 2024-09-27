@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import GenerateLoadingScreen from "./components/generate-loader";
 import GenerateHome from "./components/gererate-home";
 import { useGetUsersQuery } from "./api";
+import Chat from "../../components/chat";
 
 const GenerateQuestion = () => {
   const { data: users, error, isLoading } = useGetUsersQuery();
@@ -23,12 +24,16 @@ const GenerateQuestion = () => {
           conversations={conversations}
           onClick={(question) => {
             setConversations((convs) => [...convs, question]);
-            setConversations((convs) => [
-              ...convs,
-              {
-                type: "LOADING",
-              },
-            ]);
+
+            setTimeout(() => {
+              setConversations((convs) => [
+                ...convs,
+                {
+                  type: "LOADING",
+                },
+              ]);
+            }, 300);
+
 
             setTimeout(() => {
               setConversations((convs) => [...convs].slice(0, -1));
@@ -61,6 +66,8 @@ const GenerateQuestion = () => {
           }}
         />
       )}
+
+      <Chat />
     </div>
   );
 };

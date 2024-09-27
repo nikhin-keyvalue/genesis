@@ -1,25 +1,13 @@
 import PropTypes from "prop-types";
-import { useEffect, useRef } from "react";
 
 import { useState } from "react";
 import { Button, IconButton } from "../../../components/button";
-import ChatBubble from "../../../components/chat-bubble";
+import ChatList from "../../../components/chat-list";
 
 const GenerateHome = ({ conversations, onClick, onEventClick }) => {
   const [input, setInput] = useState("");
 
   const hasConversations = !!conversations.length;
-
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({
-        top: scrollRef.current.scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [conversations]);
 
   return (
     <div className="flex flex-col items-center">
@@ -46,25 +34,7 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
           />
         )}
 
-        <div
-          ref={scrollRef}
-          className={`transition-all duration-500 ease-in-out overflow-y-auto mb-4 ${
-            hasConversations ? "h-[180px]" : "h-0 !m-0"
-          }`}
-        >
-          {conversations.map((conversation) => (
-            <div
-              className="flex items-center justify-between mb-2"
-              key={conversation.message}
-            >
-              <ChatBubble
-                chat={conversation}
-                onEventClick={onEventClick}
-                scrollRef={scrollRef}
-              />
-            </div>
-          ))}
-        </div>
+        <ChatList conversations={conversations} onEventClick={onEventClick} />
 
         <div className="flex justify-between">
           <IconButton icon="/Attach.svg" size={40} />
