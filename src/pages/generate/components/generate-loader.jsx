@@ -1,20 +1,4 @@
-import { useEffect } from "react";
-
 const GenerateLoadingScreen = () => {
-  useEffect(() => {
-    const container = document.querySelector(".container-loader");
-    const blobs = document.querySelector(".blobs");
-    const switchButtons = document.querySelectorAll(".switch-button");
-
-    switchButtons.forEach((button) => {
-      button.append(blobs.cloneNode(true));
-      button.addEventListener("click", () => {
-        console.log(button);
-        container.classList = `container-loader palette-${button.dataset.palette}`;
-      });
-    });
-  }, []);
-
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div>

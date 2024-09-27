@@ -64,7 +64,7 @@ function NavItem({ icon, text, isExpanded }) {
     >
       <img src={`${icon}.svg`} alt="Sidenav" height="40" width="40" />
       {isExpanded && (
-        <span className="overflow-hidden text-nowrap">{text}</span>
+        <span className="overflow-hidden text-nowrap text-xl">{text}</span>
       )}
     </div>
   );

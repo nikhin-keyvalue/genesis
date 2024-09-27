@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import GenerateLoadingScreen from "./components/generate-loader";
 import GenerateHome from "./components/gererate-home";
 import { useGetUsersQuery } from "./api";
@@ -8,13 +9,23 @@ const GenerateQuestion = () => {
 
   console.log(users, error, isLoading);
 
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   return (
     <div className="flex items-center justify-center h-screen w-full poppins">
       {loading ? (
         <GenerateLoadingScreen />
       ) : (
-        <GenerateHome onClick={() => setLoading(true)} />
+        <GenerateHome
+          onClick={() => {
+            setLoading(true);
+
+            setTimeout(() => {
+              navigate('/questions')
+            }, 3000);
+          }}
+        />
       )}
     </div>
   );
