@@ -45,11 +45,11 @@ const GenerateQuestion = () => {
               ]);
             }, 3000);
           }}
-          onEventClick={() => {
+          onEventClick={(route) => {
             setLoading(true);
 
             setTimeout(() => {
-              navigate("/questions");
+              navigate(route);
             }, 3000);
           }}
         />
