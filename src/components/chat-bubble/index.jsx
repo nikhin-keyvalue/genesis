@@ -65,10 +65,15 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
 
 const LoadingChat = () => (
   <div className="w-full flex flex-col items-start">
-    <div className="w-[80px] flex flex-col items-start">
-      <div className="bg-[#282828] py-2 px-4 flex items-center rounded-lg">
+    <div className=" flex flex-col items-start">
+      <div className="bg-[#282828] w-[110px] py-2 px-4 flex items-center rounded-lg">
         <img src="ai.png" alt="AI" width="12px" height="12px" />
-        <p className="text-[#EAE8E1] font-medium text-sm m-1">M</p>
+        <p className="text-[#EAE8E1] font-medium text-base mx-2">M</p>
+        <div className="snippet ml-4" data-title="dot-flashing">
+          <div className="stage">
+            <div className="dot-flashing"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
