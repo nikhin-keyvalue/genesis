@@ -1,12 +1,22 @@
 import PropTypes from "prop-types";
+import { useEffect, useRef } from "react";
+
 import { useState } from "react";
 import { Button, IconButton } from "../../../components/button";
 import ChatBubble from "../../../components/chat-bubble";
 
-const GenerateHome = ({ conversations, onClick }) => {
+const GenerateHome = ({ conversations, onClick, onEventClick }) => {
   const [input, setInput] = useState("");
 
   const hasConversations = !!conversations.length;
+
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [conversations]);
 
   return (
     <div className="flex flex-col items-center">
@@ -34,6 +44,7 @@ const GenerateHome = ({ conversations, onClick }) => {
         )}
 
         <div
+          ref={scrollRef}
           className={`transition-all duration-500 ease-in-out overflow-y-auto mb-4 ${
             hasConversations ? "h-[180px]" : "h-0 !m-0"
           }`}
@@ -43,7 +54,11 @@ const GenerateHome = ({ conversations, onClick }) => {
               className="flex items-center justify-between mb-2"
               key={conversation.message}
             >
-              <ChatBubble chat={conversation} />
+              <ChatBubble
+                chat={conversation}
+                onEventClick={onEventClick}
+                scrollRef={scrollRef}
+              />
             </div>
           ))}
         </div>
@@ -54,18 +69,19 @@ const GenerateHome = ({ conversations, onClick }) => {
             <input
               value={input}
               placeholder="Explain your difficulty in any topic or subject..."
-              className="h-full p-0 mx-2 resize-none overflow-auto w-full flex-1 bg-transparent pb-1.5 text-base outline-none ring-0 placeholder:[#EAE8E1] text-[#EAE8E1]"
+              className="h-[40px] p-0 mx-2 resize-none overflow-auto w-full flex-1 bg-transparent text-base outline-none ring-0 placeholder:[#EAE8E1] text-[#EAE8E1]"
               onChange={(e) => setInput(e.target.value)}
             />
           )}
           <Button
-            onClick={() =>
+            onClick={() => {
               onClick({
                 type: "QUESTION",
                 message: input,
-                time: '12:34 PM'
-              })
-            }
+                time: "12:34 PM",
+              });
+              setInput("");
+            }}
             className="!w-[88px]"
           >
             <img src="Generate.svg" alt="Generate" />

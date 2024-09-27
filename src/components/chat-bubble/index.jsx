@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const SendChatBubble = ({ message, time }) => (
   <div className="w-full flex flex-col items-end ">
@@ -12,27 +12,51 @@ const SendChatBubble = ({ message, time }) => (
   </div>
 );
 
-const RecieveChatBubble = ({ message, actions }) => (
-  <div className="w-full flex flex-col items-start">
-    <div className="max-w-[80%] flex flex-col items-start ">
-      <div className="text-[#EAE8E1] text-base">{message}</div>
-      {!!actions?.length && (
-        <div className="flex items-center gap-2 mt-3">
-          {actions?.map((action) => (
-            <Link
-              to={action.link}
-              key={action.title}
-              className="flex items-center text-[#DE5327] hover:text-[#DE5327] border-[0.5px] border-[#DE5327] px-3 py-1 rounded-lg font-light"
-            >
-              {action.title}
-              <img src="OrangeArrow.svg" alt="Arrrow" className="ml-2" />
-            </Link>
-          ))}
-        </div>
-      )}
+const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
+  const [currentText, setCurrentText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  useEffect(() => {
+    let timeout;
+
+    if (currentIndex <= message.length - 1) {
+      timeout = setTimeout(() => {
+        setCurrentText((prevText) => prevText + message[currentIndex]);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+        if (currentIndex === message.length - 1) {
+          setIsTyping(false);
+        }
+      }, 20);
+    }
+
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+
+    return () => clearTimeout(timeout);
+  }, [currentIndex, message, isTyping, scrollRef]);
+
+  return (
+    <div className="w-full flex flex-col items-start">
+      <div className="max-w-[80%] flex flex-col items-start ">
+        <div className="text-[#EAE8E1] text-base">{currentText}</div>
+        {!!actions?.length && !isTyping && (
+          <div className="flex items-center gap-2 mt-3">
+            {actions?.map((action) => (
+              <div
+                key={action.title}
+                onClick={() => onEventClick(action.link)}
+                className="flex items-center text-[#DE5327] hover:text-[#DE5327] border-[0.5px] border-[#DE5327] px-3 py-1 rounded-lg font-light"
+              >
+                {action.title}
+                <img src="OrangeArrow.svg" alt="Arrrow" className="ml-2" />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const LoadingChat = ({ message, time }) => (
   <div className="bg-[#262626]">
@@ -41,7 +65,7 @@ const LoadingChat = ({ message, time }) => (
   </div>
 );
 
-const ChatBubble = ({ chat }) => {
+const ChatBubble = ({ chat, onEventClick, scrollRef }) => {
   switch (chat.type) {
     case "QUESTION":
       return <SendChatBubble message={chat.message} time={chat.time} />;
@@ -51,6 +75,8 @@ const ChatBubble = ({ chat }) => {
           message={chat.message}
           time={chat.time}
           actions={chat.actions}
+          onEventClick={onEventClick}
+          scrollRef={scrollRef}
         />
       );
     case "LOADING":
@@ -68,6 +94,8 @@ SendChatBubble.propTypes = {
 RecieveChatBubble.propTypes = {
   message: PropTypes.string.isRequired,
   actions: PropTypes.array,
+  onEventClick: PropTypes.func,
+  scrollRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
 
 LoadingChat.propTypes = {
@@ -81,6 +109,8 @@ ChatBubble.propTypes = {
     time: PropTypes.string,
     actions: PropTypes.array,
   },
+  onEventClick: PropTypes.func,
+  scrollRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
 };
 
 export default ChatBubble;
