@@ -1,6 +1,6 @@
 .question-box {
     width: 100%;
-    min-height: 658px;
+
     border-radius: 10px;
     opacity: 0px;
     padding: 0 30px;
@@ -31,7 +31,7 @@
 
 .question {
     text-align: left;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 25px;
     padding: 30px 0;
 }
@@ -43,7 +43,7 @@
 }
 
 .option {
-    padding: 24px 16px;
+    padding: 16px;
 }
 
 .radio-container {
@@ -51,7 +51,7 @@
     align-items: flex-start;
     cursor: pointer;
     text-align: start;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 25px;
     font-weight: 400;
     padding-left: 10px;
