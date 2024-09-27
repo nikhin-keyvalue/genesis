@@ -13,6 +13,13 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
     setInput("");
   };
 
+  const onKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      onBtnClick();
+    }
+  };
+
   return (
     <div className="flex flex-col items-center min-w-[864px]">
       <div className="text-[40px] font-medium clash-display">
@@ -48,6 +55,7 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
               placeholder="Explain your difficulty in any topic or subject..."
               className="h-[40px] p-0 mx-2 focus:outline-none resize-none overflow-auto w-full flex-1 bg-transparent text-base ring-0 placeholder:[#EAE8E1] text-[#EAE8E1] !outline-none"
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={onKeyDown}
             />
           )}
           <Button onClick={onBtnClick} className="!w-[88px]">

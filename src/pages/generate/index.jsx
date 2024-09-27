@@ -63,7 +63,7 @@ const GenerateQuestion = () => {
       setLoading(true);
       generateQuestions(getPayload(null, true));
     } else if (action === "REFER_NOTES") {
-      navigate("/curriculum");
+      // navigate("/curriculum");
     }
   };
 
