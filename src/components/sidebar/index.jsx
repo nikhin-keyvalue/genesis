@@ -31,7 +31,7 @@ export default function ExpandableSidebar() {
             isExpanded ? "justify-start" : "justify-center"
           }`}
         >
-          <NavItem icon="AI" text="Generate test" isExpanded={isExpanded} link="/generat" />
+          <NavItem icon="AI" text="Generate test" isExpanded={isExpanded} link="/generate-test" />
           <NavItem
             icon="Document"
             text="Your curriculum"
