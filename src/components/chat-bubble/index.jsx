@@ -71,7 +71,7 @@ const LoadingChat = ({ isLoaded }) => (
         style={{ width: isLoaded ? 70 : 110 }}
       >
         <img src="ai.png" alt="AI" width="12px" height="12px" />
-        <p className="text-[#EAE8E1] font-medium text-base mx-2">M</p>
+        <p className="text-[#EAE8E1] font-medium text-base mx-2 clash-display">M</p>
         {!isLoaded ? (
           <div className="snippet ml-4" data-title="dot-flashing">
             <div className="stage">
