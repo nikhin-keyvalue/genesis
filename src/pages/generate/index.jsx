@@ -121,7 +121,7 @@ const GenerateQuestion = () => {
   return (
     <div className="flex items-center justify-center h-screen w-full poppins">
       {loading ? (
-        <GenerateLoadingScreen />
+        <GenerateLoadingScreen title="Generating your exam..." subtitle="Make sure you are at the top of your game for this!" />
       ) : (
         <GenerateHome
           conversations={conversations}

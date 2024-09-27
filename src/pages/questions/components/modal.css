@@ -4,22 +4,24 @@
     left: 0;
     width: 100%;
     backdrop-filter: blur(30px);
-    background: #a0a0a01a;
+    background-color: #a0a0a01a;
     z-index: 999;
 }
 
 .modal-content {
     width: 50%;
-    height: 491px;
+    height: 350px;
     border-radius: 24px;
-    background: #3a3a3ab2;
     border: 1px solid #1111114f;
     backdrop-filter: blur(30px);
-    padding: 100px 200px;
+    padding: 50px 200px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    background-color: #3A3A3AB2;
+    box-shadow: 0px 4px 4px 0px #00000040;
+
 }
 
 .modal-content img {
@@ -49,7 +51,7 @@
     font-weight: 300;
     line-height: 18px;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
 .modal-content .you-have-completed {
@@ -59,7 +61,7 @@
     line-height: 26.4px;
     letter-spacing: -0.03em;
     text-align: left;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
 }
 
 .modal-content .you-have-completed span {

@@ -54,10 +54,6 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #e64a19;
-}
-
 .rank-input input::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;

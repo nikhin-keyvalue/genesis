@@ -186,7 +186,7 @@ const Questions = () => {
                     )}
                 </div>
             </div>
-            {openModal && <Modal handleClose={handleClose} handleSubmit={submitAnswers} total={questions.length} answered={getAnsweredCount()} />}
+            {openModal && <Modal handleClose={handleClose} handleSubmit={submitAnswers} total={questions.length} answered={getAnsweredCount()} isLoading={isLoading} />}
         </div>
     );
 };

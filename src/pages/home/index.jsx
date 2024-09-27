@@ -1,11 +1,62 @@
 /* eslint-disable no-unused-vars */
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useResizeObserver } from "@wojtekmaj/react-hooks";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 
 import "./sample.css";
+
+
+import acids from './pdfs/chem/acids.pdf'
+import alcohols from './pdfs/chem/acids.pdf'
+import hydrocarbons from './pdfs/chem/acids.pdf'
+import reaction_mechanism from './pdfs/chem/acids.pdf'
+
+import gravitation from './pdfs/phy/gravitation.pdf'
+import thermodynamics from './pdfs/phy/thermodynamics.pdf'
+import units_and_measurements from './pdfs/phy/units_and_measurements.pdf'
+import waves from './pdfs/phy/waves.pdf'
+
+const fileConfig = {
+  phy: [
+    {
+      name: 'gravitation',
+      file: gravitation,
+    },
+    {
+      name: 'thermodynamics',
+      file: thermodynamics,
+    },
+    {
+      name: 'units_and_measurements',
+      file: units_and_measurements,
+    },
+    {
+      name: 'waves',
+      file: waves,
+    },
+  ],
+  chem: [
+    {
+      name: 'acids',
+      file: acids,
+    },
+    {
+      name: 'alcohols',
+      file: alcohols,
+    },
+    {
+      name: 'hydrocarbons',
+      file: hydrocarbons,
+    },
+    {
+      name: 'reaction_mechanism',
+      file: reaction_mechanism,
+    },
+  ],
+}
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -21,15 +72,27 @@ const resizeObserverOptions = {};
 
 const maxWidth = 800;
 
+
 export default function Sample() {
-  const [file, setFile] = useState("./sample.pdf");
+  const [topic, setTopic] = useState('phy')
+  const [pdfs, setPdfs] = useState([]);
+  const [file, setFile] = useState('');
   const [numPages, setNumPages] = useState();
   const [containerRef, setContainerRef] = useState(null);
   const [containerWidth, setContainerWidth] = useState();
+  const [openChat, setOpenChat] = useState(false);
 
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 });
   const [selectedText, setSelectedText] = useState("");
+
+  useEffect(() => {
+    if (fileConfig[topic]) {
+      setPdfs(fileConfig[topic]);
+      setFile(fileConfig[topic][0]);
+    }
+  }, [fileConfig])
+
 
   const onResize = useCallback((entries) => {
     const [entry] = entries;
@@ -73,12 +136,38 @@ export default function Sample() {
     }
   };
 
+  const handleBreadcrumbClick = (pdf) => {
+    setFile(pdf)
+  }
+
+  const handleTakeTest = () => {
+
+  }
+
+  const handleExplain = () => {
+    setOpenChat(true)
+  }
+
   return (
     <div className="Example">
       <div className="Example__container">
-        <div className="Example__container__load">
-          <label htmlFor="file">Load from file:</label>{" "}
-          <input onChange={onFileChange} type="file" />
+        <div className="pdf-header">
+          <div className="breadcrumbs-container">
+            <div className="h-line" />
+            {pdfs.map((pdf, index) => (
+              <button
+                key={pdf.name}
+                className={`breadcrumbs-btn ${file.name === pdf.name ? 'active' : ''}`}
+                onClick={() => handleBreadcrumbClick(pdf)}
+              >
+                {pdf.name}
+              </button>
+            ))}
+          </div>
+          <button className="take-test" onClick={handleTakeTest}>
+            Take Test
+            <img src="/send.png" alt="send" />
+          </button>
         </div>
         <div
           className="Example__container__document"
@@ -86,7 +175,7 @@ export default function Sample() {
           onMouseUp={handleTextSelection}
         >
           <Document
-            file={file}
+            file={file.file}
             onLoadSuccess={onDocumentLoadSuccess}
             options={options}
           >
@@ -123,6 +212,7 @@ export default function Sample() {
             justifyContent: 'center',
             alignItems: 'center'
           }}
+          onClick={handleExplain}
         >
           <img src="/ai.png" alt="ai" style={{ width: '20px', height: '20px', marginRight: '10px' }} />
           <p>Explain with AI</p>
