@@ -50,7 +50,7 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
               <div
                 key={action.title}
                 onClick={() => onEventClick(action.action)}
-                className="flex items-center text-[#DE5327] hover:text-[#DE5327] border-[0.5px] border-[#DE5327] px-3 py-1 rounded-lg font-light"
+                className="flex items-center text-[#DE5327] hover:text-[#DE5327] cursor-pointer border-[0.5px] border-[#DE5327] px-3 py-1 rounded-lg font-light"
               >
                 {action.title}
                 <img src="OrangeArrow.svg" alt="Arrrow" className="ml-2" />

@@ -13,8 +13,6 @@ const Questions = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState({});
   const [percentage, setPercentage] = useState(0);
-  const [answers, setAnswers] = useState([]);
-  const [timeStamp, setTimeStamp] = useState([]);
   const [openModal, setOpenModal] = useState(false);
 
   const [submit, { data, isSuccess, isLoading }] = useSubmitMutation();
@@ -25,7 +23,7 @@ const Questions = () => {
       localStorage.setItem("testSummary", JSON.stringify(data));
       setOpenModal(false);
     }
-  }, [isSuccess]);
+  }, [data, isSuccess, navigate]);
 
   const accuracy = useRef({
     totalAccuracy: 0,
