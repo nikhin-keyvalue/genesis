@@ -20,7 +20,17 @@ export const baseApi = createApi({
         }
       }),
     }),
+    submit: builder.mutation({
+      query: (userData) => ({
+        url: '/api/assessment/submit',
+        method: 'POST',
+        body: userData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }),
+    }),
   }),
 });
 
-export const { useCreateUserMutation } = baseApi;
+export const { useCreateUserMutation, useSubmitMutation } = baseApi;

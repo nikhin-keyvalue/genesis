@@ -3,17 +3,30 @@ import QuestionBox from "./components/questionBox";
 
 import "./questions.css";
 import ProgressBar from "./components/progressBar";
-import data from "./dummy";
+import dummyData from "./dummy";
 import Modal from "./components/Modal";
+import { useSubmitMutation } from "../../api";
+import { useNavigate } from "react-router-dom";
 
 const Questions = () => {
+    const navigate = useNavigate();
 
-    const [questions, setQuestions] = useState(data);
-    const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+    const [questions, setQuestions] = useState([]);
+    const [currentQuestion, setCurrentQuestion] = useState({});
     const [percentage, setPercentage] = useState(0)
     const [answers, setAnswers] = useState([]);
     const [timeStamp, setTimeStamp] = useState([]);
     const [openModal, setOpenModal] = useState(false)
+
+    const [submit, { data, isSuccess, isLoading }] = useSubmitMutation();
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate("/");
+            localStorage.setItem("testSummary", JSON.stringify(data));
+            setOpenModal(false);
+        }
+    }, [isSuccess]);
 
     const accuracy = useRef({
         totalAccuracy: 0,
@@ -25,13 +38,12 @@ const Questions = () => {
     });
 
     useEffect(() => {
-        if (data.length) {
-            console.log({ data });
-            const mappedList = data.map((item, index) => ({ ...item, index: index + 1 }))
+        if (dummyData.length) {
+            const mappedList = dummyData.map((item, index) => ({ ...item, index: index + 1 }))
             setQuestions(mappedList);
             setCurrentQuestion(mappedList[0]);
         }
-    }, [data])
+    }, [dummyData])
 
     let startTime = new Date();
 
@@ -47,7 +59,6 @@ const Questions = () => {
     const handleNextBtn = () => {
         getTimeStamp()
         updateAccuracy(currentQuestion)
-        console.log('handleNext');
         if (currentQuestion.index === questions.length) {
             setOpenModal(true);
         } else setCurrentQuestion(questions[currentQuestion.index]);
@@ -121,12 +132,20 @@ const Questions = () => {
         return { accuracyFin, categorySplit }
     }
 
-    const submitAnswers = () => {debugger
-        // category wise logic
+    const submitAnswers = () => {
         const { accuracyFin, categorySplit } = calculateAccuracy();
-        console.log({ accuracyFin, categorySplit, questions });
-        alert(JSON.stringify({ accuracyFin, categorySplit, questions }));
-        setOpenModal(false);
+        localStorage.setItem("accuracy", JSON.stringify({ totalAccuracy: accuracyFin, categoryAccuracy: categorySplit }));
+        const payload = {
+            context: {
+                user: JSON.parse(localStorage.getItem("userDetails")),
+                question_answers: [...questions]
+            },
+            query: "Generate Feedback for student exam results"
+        }
+        if (!isLoading) {
+            submit(payload);
+            localStorage.setItem("submitedData", JSON.stringify(payload));
+        }
     }
 
     const handleClose = () => { setOpenModal(false) }
