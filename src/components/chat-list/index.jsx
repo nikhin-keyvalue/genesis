@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import ChatBubble from "../chat-bubble";
 
-const ChatList = ({ conversations, onEventClick }) => {
+const ChatList = ({ conversations, onEventClick, className }) => {
   const hasConversations = !!conversations.length;
 
   const scrollRef = useRef(null);
@@ -21,7 +21,7 @@ const ChatList = ({ conversations, onEventClick }) => {
       ref={scrollRef}
       className={`transition-all duration-500 ease-in-out overflow-y-auto mb-4 ${
         hasConversations ? "h-[180px]" : "h-0 !m-0"
-      }`}
+      } ${className}`}
     >
       {conversations.map((conversation) => (
         <div
@@ -42,6 +42,7 @@ const ChatList = ({ conversations, onEventClick }) => {
 ChatList.propTypes = {
   conversations: PropTypes.array,
   onEventClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default ChatList;

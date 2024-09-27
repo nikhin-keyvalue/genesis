@@ -34,7 +34,6 @@ const GenerateQuestion = () => {
               ]);
             }, 300);
 
-
             setTimeout(() => {
               setConversations((convs) => [...convs].slice(0, -1));
               setConversations((convs) => [
@@ -67,7 +66,9 @@ const GenerateQuestion = () => {
         />
       )}
 
-      <Chat />
+      <div className="!w-[500px]">
+        <Chat />
+      </div>
     </div>
   );
 };
