@@ -1,15 +1,20 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Button, IconButton } from "../../../components/button";
-import ChatBubble from "../../../components/chat-bubble";
+import ChatList from "../../../components/chat-list";
 
-const GenerateHome = ({ conversations, onClick }) => {
+const GenerateHome = ({ conversations, onClick, onEventClick }) => {
   const [input, setInput] = useState("");
 
   const hasConversations = !!conversations.length;
 
+  const onBtnClick = () => {
+    onClick(input);
+    setInput("");
+  };
+
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-[864px]">
       <div className="text-[40px] font-medium clash-display">
         Generate your question paper.
       </div>
@@ -20,7 +25,7 @@ const GenerateHome = ({ conversations, onClick }) => {
       </div>
 
       <div
-        className={`bg-black rounded-[20px] p-5 mt-[50px] border border-[#403B38] w-[45vw] transition-all duration-500 ease-in-out  ${
+        className={`bg-black rounded-[20px] p-5 mt-[50px] border border-[#403B38] w-full transition-all duration-500 ease-in-out  ${
           hasConversations ? " h-[280px]" : " h-[180px]"
         }`}
       >
@@ -33,20 +38,7 @@ const GenerateHome = ({ conversations, onClick }) => {
           />
         )}
 
-        <div
-          className={`transition-all duration-500 ease-in-out overflow-y-auto mb-4 ${
-            hasConversations ? "h-[180px]" : "h-0 !m-0"
-          }`}
-        >
-          {conversations.map((conversation) => (
-            <div
-              className="flex items-center justify-between mb-2"
-              key={conversation.message}
-            >
-              <ChatBubble chat={conversation} />
-            </div>
-          ))}
-        </div>
+        <ChatList conversations={conversations} onEventClick={onEventClick} />
 
         <div className="flex justify-between">
           <IconButton icon="/Attach.svg" size={40} />
@@ -54,20 +46,11 @@ const GenerateHome = ({ conversations, onClick }) => {
             <input
               value={input}
               placeholder="Explain your difficulty in any topic or subject..."
-              className="h-full p-0 mx-2 resize-none overflow-auto w-full flex-1 bg-transparent pb-1.5 text-base outline-none ring-0 placeholder:[#EAE8E1] text-[#EAE8E1]"
+              className="h-[40px] p-0 mx-2 resize-none overflow-auto w-full flex-1 bg-transparent text-base ring-0 placeholder:[#EAE8E1] text-[#EAE8E1] !outline-none"
               onChange={(e) => setInput(e.target.value)}
             />
           )}
-          <Button
-            onClick={() =>
-              onClick({
-                type: "QUESTION",
-                message: input,
-                time: '12:34 PM'
-              })
-            }
-            className="!w-[88px]"
-          >
+          <Button onClick={onBtnClick} className="!w-[88px]">
             <img src="Generate.svg" alt="Generate" />
           </Button>
         </div>
@@ -78,7 +61,7 @@ const GenerateHome = ({ conversations, onClick }) => {
         <IconButton icon="/Arrows.svg" size={32} className="ml-4" />
       </div>
 
-      <div className="flex items-center gap-4 !text-gray-200 mt-[14px] text-base w-[70vw]">
+      <div className="flex items-center gap-4 !text-gray-200 mt-[14px] text-base max-w-[70vw] min-w-[864px] w-full">
         <div className=" border text-left border-[#403B38] text-[#403B38] w-1/3 rounded-[8px] p-4">
           Make me a mock test for physics to prepare for JEE Mains. Time limit
           is 30 min with 30 questions

@@ -1,0 +1,48 @@
+.dropdown-btn {
+    background-color: #1111111a;
+    border: 1px solid #eae8e133;
+    border-radius: 9px;
+    height: 54px;
+    font-size: 16px;
+    line-height: 30px;
+    font-family: "Poppins", sans-serif;
+    padding: 0 20px;
+    font-weight: 300;
+}
+
+.dropdown-options {
+    border: 1px solid #eae8e133;
+    background-color: #111111;
+    backdrop-filter: blur(4px);
+    box-shadow: 0px 6px 68.6px 0px #00000073;
+    border-radius: 8px;
+}
+
+.dropdown-options button {
+    background-color: #111111;
+}
+
+.dropdown-btn:hover {
+    background-color: #111111;
+    border: 1px solid #eae8e133;
+}
+
+.dropdown-wrapper h2 {
+    margin-bottom: 6px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    text-align: left;
+}
+
+.dropdown-options button {
+    font-size: 16px;
+    line-height: 30px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+}
+
+.dropdown-wrapper .open {
+    transform: rotate(180deg);
+}
