@@ -100,6 +100,9 @@ body {
   overflow-y: hidden;
   position: fixed;
 
+  background-image: url("Pattern.svg");
+  background-repeat: no-repeat;
+
   left: 0;
   top: 0;
   width: 100%;
