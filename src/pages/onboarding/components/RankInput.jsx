@@ -5,7 +5,7 @@ export default function RankInput({ handleRankChange }) {
 
   const handleChange = (e) => {
     setRank(Number(e.target.value));
-    handleRankChange(Number(e));
+    handleRankChange(e);
   };
 
   return (
