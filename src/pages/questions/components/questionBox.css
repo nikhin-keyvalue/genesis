@@ -1,12 +1,11 @@
 .question-box {
     width: 100%;
-
     border-radius: 10px;
     opacity: 0px;
     padding: 0 30px;
     backdrop-filter: blur(30px);
     background: #A0A0A00D;
-
+    height: 100%;
 }
 
 .question-header p {
@@ -69,7 +68,6 @@
     display: inline-block;
     position: relative;
     margin-right: 10px;
-    background-color: #131313;
     flex-shrink: 0;
     margin-top: 2px;
 }
@@ -83,10 +81,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition:
-        background-color 0.3s ease,
-        width 0.3s ease,
-        height 0.3s ease;
 }
 
 .radio-inner.selected {
@@ -98,7 +92,11 @@
 .buttons {
     display: flex;
     justify-content: space-between;
-    padding: 30px 0;
+    padding: 30px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
 }
 
 .buttons button {
