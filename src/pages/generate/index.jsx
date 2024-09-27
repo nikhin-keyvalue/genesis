@@ -24,12 +24,12 @@ const GenerateQuestion = () => {
       if (action === "ATTEND_EXAM") {
         formattedActionsList.push({
           title: "Take Test",
-          link: "/questions",
+          action,
         });
       } else if (action === "REFER_NOTES") {
         formattedActionsList.push({
           title: "Refer notes",
-          link: "/curriculum",
+          action,
         });
       }
     });
@@ -43,6 +43,14 @@ const GenerateQuestion = () => {
 
   const removeLoader = () => {
     setConversations((convs) => [...convs].slice(0, -1));
+  };
+
+  const onActionClick = (action) => {
+    if (action === "ATTEND_EXAM") {
+      setLoading(true);
+    } else if (action === "REFER_NOTES") {
+      navigate("/curriculum");
+    }
   };
 
   useEffect(() => {
@@ -112,13 +120,7 @@ const GenerateQuestion = () => {
         <GenerateHome
           conversations={conversations}
           onClick={onClick}
-          onEventClick={(route) => {
-            setLoading(true);
-
-            setTimeout(() => {
-              navigate(route);
-            }, 3000);
-          }}
+          onEventClick={onActionClick}
         />
       )}
     </div>

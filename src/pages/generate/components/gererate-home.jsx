@@ -14,7 +14,7 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
   };
 
   return (
-    <div className="flex flex-col items-center w-[864px]">
+    <div className="flex flex-col items-center min-w-[864px]">
       <div className="text-[40px] font-medium clash-display">
         Generate your question paper.
       </div>
@@ -25,7 +25,7 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
       </div>
 
       <div
-        className={`bg-black rounded-[20px] p-5 mt-[50px] border border-[#403B38] w-full transition-all duration-500 ease-in-out  ${
+        className={`bg-black rounded-[20px] p-5 mt-[50px] border border-[#403B38] w-[864px] transition-all duration-500 ease-in-out  ${
           hasConversations ? " h-[280px]" : " h-[180px]"
         }`}
       >
