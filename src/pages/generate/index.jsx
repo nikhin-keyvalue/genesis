@@ -4,10 +4,14 @@ import GenerateLoadingScreen from "./components/generate-loader";
 import GenerateHome from "./components/gererate-home";
 import { useGetUsersQuery, useGenerateQuestionsMutation } from "./api";
 
+//i want to learn organic checmistry
+
 const GenerateQuestion = () => {
   const navigate = useNavigate();
+  const useDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   const [loading, setLoading] = useState(false);
+  const [selectedQuestion, setSelectedQuestion] = useState("");
   const [conversations, setConversations] = useState([]);
 
   const { data: users } = useGetUsersQuery();
@@ -15,7 +19,16 @@ const GenerateQuestion = () => {
     useGenerateQuestionsMutation();
 
   console.log(users);
-  console.log(isLoading, isSuccess, error);
+
+  const getPayload = (question, generateQuestions = false) => {
+    return {
+      context: {
+        user: useDetails,
+      },
+      query: question || selectedQuestion,
+      ...(generateQuestions && { takeTest: true }),
+    };
+  };
 
   const getFormattedActions = (actions) => {
     const formattedActionsList = [];
@@ -47,7 +60,8 @@ const GenerateQuestion = () => {
 
   const onActionClick = (action) => {
     if (action === "ATTEND_EXAM") {
-      setLoading(true);
+      setLoading(null, true);
+      generateQuestions(getPayload(true));
     } else if (action === "REFER_NOTES") {
       navigate("/curriculum");
     }
@@ -65,11 +79,16 @@ const GenerateQuestion = () => {
     if ((data, isSuccess)) {
       removeLoader();
 
-      if (data.question) {
+      if (data?.question) {
         updateConversations({
           type: "ANSWER",
           message: data.question,
           actions: getFormattedActions(data.actions),
+        });
+      } else {
+        updateConversations({
+          type: "ANSWER",
+          message: "Oh no! Something went wrong.!",
         });
       }
     }
@@ -86,6 +105,7 @@ const GenerateQuestion = () => {
   }, [error]);
 
   const onClick = (question) => {
+    setSelectedQuestion(question);
     setConversations((convs) => [
       ...convs,
       {
@@ -95,21 +115,7 @@ const GenerateQuestion = () => {
       },
     ]);
 
-    generateQuestions({
-      context: {
-        user: {
-          id: "0f682b27-cff1-46ea-b3f2-85147f8ed7ae",
-          name: "Alan Walker",
-          phone: "9895149915",
-          expectedRank: "100",
-          summary: "I want to get rank - 100 in GATE exam",
-          institution: "XYLEM",
-          exam: "GATE",
-          proficiency: "ELITE",
-        },
-      },
-      query: question,
-    });
+    generateQuestions(getPayload(question));
   };
 
   return (
