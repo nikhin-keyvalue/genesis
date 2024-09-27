@@ -60,8 +60,8 @@ const GenerateQuestion = () => {
 
   const onActionClick = (action) => {
     if (action === "ATTEND_EXAM") {
-      setLoading(null, true);
-      generateQuestions(getPayload(true));
+      setLoading(true);
+      generateQuestions(getPayload(null, true));
     } else if (action === "REFER_NOTES") {
       navigate("/curriculum");
     }
@@ -77,22 +77,28 @@ const GenerateQuestion = () => {
 
   useEffect(() => {
     if ((data, isSuccess)) {
-      removeLoader();
-
-      if (data?.question) {
-        updateConversations({
-          type: "ANSWER",
-          message: data.question,
-          actions: getFormattedActions(data.actions),
-        });
+      if (loading) {
+        setLoading(false);
+        localStorage.setItem("questions", JSON.stringify(data));
+        navigate("/questions");
       } else {
-        updateConversations({
-          type: "ANSWER",
-          message: "Oh no! Something went wrong.!",
-        });
+        removeLoader();
+
+        if (data?.question) {
+          updateConversations({
+            type: "ANSWER",
+            message: data.question,
+            actions: getFormattedActions(data.actions),
+          });
+        } else {
+          updateConversations({
+            type: "ANSWER",
+            message: "Oh no! Something went wrong.!",
+          });
+        }
       }
     }
-  }, [data, isSuccess]);
+  }, [data, isSuccess, loading, navigate]);
 
   useEffect(() => {
     if (error) {
