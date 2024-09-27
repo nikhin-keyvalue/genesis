@@ -8,11 +8,18 @@ import {
   useGenerateAssessmentQuestionsMutation,
   useGenerateUserExplainQuestionsMutation,
 } from "../../pages/generate/api";
+import useVoiceAssistant from "../../hooks/useVoiceAssistant";
 
 const Chat = ({ isUserExplainFlow, context }) => {
   const [input, setInput] = useState("");
   const [conversations, setConversations] = useState([]);
   const useDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const { isRecording, startRecording, stopRecording, messages } =
+    useVoiceAssistant();
+
+  useEffect(() => {
+    console.log(isRecording, messages);
+  }, [messages]);
 
   const [generateAssessmentQuestions, { data, isLoading, isSuccess, error }] =
     useGenerateAssessmentQuestionsMutation();
@@ -158,7 +165,13 @@ const Chat = ({ isUserExplainFlow, context }) => {
           />
         </div>
 
-        <IconButton icon="/Attach.svg" size={40} />
+        <IconButton
+          icon="/Attach.svg"
+          size={40}
+          onClick={() => {
+            startRecording();
+          }}
+        />
       </div>
     </div>
   );
