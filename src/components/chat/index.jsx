@@ -5,11 +5,18 @@ import { IconButton } from "../button";
 
 import ChatList from "../chat-list";
 import { useGenerateAssessmentQuestionsMutation } from "../../pages/generate/api";
+import useVoiceAssistant from "../../hooks/useVoiceAssistant";
 
 const Chat = ({ context }) => {
   const [input, setInput] = useState("");
   const [conversations, setConversations] = useState([]);
   const useDetails = JSON.parse(localStorage.getItem("userDetails"));
+  const { isRecording, startRecording, stopRecording, messages } =
+    useVoiceAssistant();
+
+  useEffect(() => {
+    console.log(isRecording, messages);
+  }, [messages]);
 
   const [generateAssessmentQuestions, { data, isLoading, isSuccess, error }] =
     useGenerateAssessmentQuestionsMutation();
@@ -121,7 +128,13 @@ const Chat = ({ context }) => {
           />
         </div>
 
-        <IconButton icon="/Attach.svg" size={40} />
+        <IconButton
+          icon="/Attach.svg"
+          size={40}
+          onClick={() => {
+            startRecording();
+          }}
+        />
       </div>
     </div>
   );

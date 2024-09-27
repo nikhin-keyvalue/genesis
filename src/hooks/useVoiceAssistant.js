@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import RecordRTC from "recordrtc";
 
-const WEBSOCKET_URL = "ws://localhost:8000/ws";
+const WEBSOCKET_URL = "ws://54c1-103-181-238-106.ngrok-free.app/ws";
 
 const useVoiceAssistant = () => {
     const [isRecording, setIsRecording] = useState(false);
