@@ -77,25 +77,25 @@ const GenerateQuestion = () => {
 
   useEffect(() => {
     if ((data, isSuccess)) {
+      removeLoader();
+
+      if (!data?.question) {
+        updateConversations({
+          type: "ANSWER",
+          message: "Oh no! Something went wrong.!",
+        });
+      }
+
       if (loading) {
         setLoading(false);
         localStorage.setItem("questions", JSON.stringify(data));
         navigate("/questions");
       } else {
-        removeLoader();
-
-        if (data?.question) {
-          updateConversations({
-            type: "ANSWER",
-            message: data.question,
-            actions: getFormattedActions(data.actions),
-          });
-        } else {
-          updateConversations({
-            type: "ANSWER",
-            message: "Oh no! Something went wrong.!",
-          });
-        }
+        updateConversations({
+          type: "ANSWER",
+          message: data.question,
+          actions: getFormattedActions(data.actions),
+        });
       }
     }
   }, [data, isSuccess, loading, navigate]);
@@ -111,13 +111,15 @@ const GenerateQuestion = () => {
   }, [error]);
 
   const onClick = (question) => {
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
     setSelectedQuestion(question);
     setConversations((convs) => [
       ...convs,
       {
-        type: "QUESTION",
-        message: question,
-        time: "12:34 PM",
+      type: "QUESTION",
+      message: question,
+      time: currentTime,
       },
     ]);
 

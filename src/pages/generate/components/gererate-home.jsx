@@ -46,7 +46,7 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
             <input
               value={input}
               placeholder="Explain your difficulty in any topic or subject..."
-              className="h-[40px] p-0 mx-2 resize-none overflow-auto w-full flex-1 bg-transparent text-base ring-0 placeholder:[#EAE8E1] text-[#EAE8E1] !outline-none"
+              className="h-[40px] p-0 mx-2 focus:outline-none resize-none overflow-auto w-full flex-1 bg-transparent text-base ring-0 placeholder:[#EAE8E1] text-[#EAE8E1] !outline-none"
               onChange={(e) => setInput(e.target.value)}
             />
           )}

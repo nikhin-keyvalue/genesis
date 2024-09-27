@@ -51,3 +51,8 @@
 textarea {
   font-size: 20px;
 }
+
+input:focus {
+  outline: 0px !important;
+  border: none !important;
+}
