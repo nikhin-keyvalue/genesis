@@ -3,11 +3,78 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { Button, IconButton } from "../../../components/button";
 import ChatList from "../../../components/chat-list";
+import { useGenerateQuestionsMutation } from "../api";
 
-const GenerateHome = ({ conversations, onClick, onEventClick }) => {
+const GenerateHome = ({ onEventClick }) => {
   const [input, setInput] = useState("");
+  const [conversations, setConversations] = useState([]);
+
+  const [generateQuestions, { isLoading, isSuccess, error }] =
+    useGenerateQuestionsMutation();
 
   const hasConversations = !!conversations.length;
+
+  console.log(isLoading, isSuccess, error);
+
+  const onClick = () => {
+    setInput("");
+
+    setConversations((convs) => [
+      ...convs,
+      {
+        type: "QUESTION",
+        message: input,
+        time: "12:34 PM",
+      },
+    ]);
+
+    setTimeout(() => {
+      setConversations((convs) => [
+        ...convs,
+        {
+          type: "LOADING",
+        },
+      ]);
+    }, 300);
+
+    setTimeout(() => {
+      setConversations((convs) => [...convs].slice(0, -1));
+      setConversations((convs) => [
+        ...convs,
+        {
+          type: "ANSWER",
+          message:
+            "I recommend you take a small test for 5 questions to help you progress...",
+          actions: [
+            {
+              title: "Take Test",
+              link: "/questions",
+            },
+            {
+              title: "Refer notes",
+              link: "/curriculum",
+            },
+          ],
+        },
+      ]);
+    }, 3000);
+
+    generateQuestions({
+      context: {
+        user: {
+          id: "0f682b27-cff1-46ea-b3f2-85147f8ed7ae",
+          name: "Alan Walker",
+          phone: "9895149915",
+          expectedRank: "100",
+          summary: "I want to get rank - 100 in GATE exam",
+          institution: "XYLEM",
+          exam: "GATE",
+          proficiency: "ELITE",
+        },
+      },
+      query: "Generate 5 questions for organic chemistry",
+    });
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -46,17 +113,7 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
               onChange={(e) => setInput(e.target.value)}
             />
           )}
-          <Button
-            onClick={() => {
-              onClick({
-                type: "QUESTION",
-                message: input,
-                time: "12:34 PM",
-              });
-              setInput("");
-            }}
-            className="!w-[88px]"
-          >
+          <Button onClick={onClick} className="!w-[88px]">
             <img src="Generate.svg" alt="Generate" />
           </Button>
         </div>
