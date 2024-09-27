@@ -10,7 +10,7 @@ const GenerateQuestion = () => {
 
   const [loading, setLoading] = useState(false);
   return (
-    <div className="flex items-center justify-center h-screen w-screen poppins">
+    <div className="flex items-center justify-center h-screen w-full poppins">
       {loading ? (
         <GenerateLoadingScreen />
       ) : (
