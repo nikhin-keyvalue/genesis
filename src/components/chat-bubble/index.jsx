@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+import Latex from "react-latex-next";
 
 const SendChatBubble = ({ message, time }) => (
   <div className="w-full flex flex-col items-end ">
     <div className="max-w-[90%] flex flex-col items-end ">
-      <div className="bg-[#262626] px-[12px] py-[10px] rounded-lg">
+      <div className="bg-[#262626] px-[12px] py-[10px] rounded-lg text-sm">
         <p>{message}</p>
       </div>
       <p className="text-[#EAE8E1] text-[10px]">{time}</p>
@@ -43,7 +44,9 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
   return (
     <div className="w-full flex flex-col items-start">
       <div className="max-w-[90%] flex flex-col items-start ">
-        <div className="text-[#EAE8E1] text-base">{currentText}</div>
+        <div className="text-[#EAE8E1] text-base">
+          <Latex>{currentText}</Latex>
+        </div>
         {!!actions?.length && !isTyping && (
           <div className="flex items-center gap-2 mt-3">
             {actions?.map((action) => (
@@ -71,7 +74,9 @@ const LoadingChat = ({ isLoaded }) => (
         style={{ width: isLoaded ? 70 : 110 }}
       >
         <img src="ai.png" alt="AI" width="12px" height="12px" />
-        <p className="text-[#EAE8E1] font-medium text-base mx-2 clash-display">M</p>
+        <p className="text-[#EAE8E1] font-medium text-sm mx-2 clash-display">
+          M
+        </p>
         {!isLoaded ? (
           <div className="snippet ml-4" data-title="dot-flashing">
             <div className="stage">
@@ -79,7 +84,9 @@ const LoadingChat = ({ isLoaded }) => (
             </div>
           </div>
         ) : (
-          <span className="text-red-500 text-3xl ml-1 mb-1 leading-4 relative top-[-2px] left-[-10px]">.</span>
+          <span className="text-red-500 text-3xl ml-1 mb-1 leading-4 relative top-[-2px] left-[-10px]">
+            .
+          </span>
         )}
       </div>
     </div>

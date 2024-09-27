@@ -2,11 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import ChatBubble from "../chat-bubble";
 
-const ChatList = ({
-  conversations,
-  onEventClick,
-  className,
-}) => {
+const ChatList = ({ conversations, onEventClick, className }) => {
   const hasConversations = !!conversations.length;
 
   const scrollRef = useRef(null);
