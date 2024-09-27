@@ -92,7 +92,7 @@ const ChatBubble = ({ chat, onEventClick, scrollRef }) => {
       return <SendChatBubble message={chat.message} time={chat.time} />;
     case "ANSWER":
       return (
-        <div>
+        <div className="w-full">
           <LoadingChat isLoaded={true} />
           <div className="mb-2" />
           <RecieveChatBubble
