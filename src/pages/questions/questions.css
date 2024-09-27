@@ -1,6 +1,6 @@
 .progressbar-question-container {
     position: relative;
-    width: 100%;
+    width: 80%;
     flex: 0.8;
 }
 
@@ -9,13 +9,13 @@
     position: absolute;
     z-index: 99;
     width: 100%;
-    padding: 0 30px;
+    padding: 0 56px;
 }
 
 .question-container {
     display: flex;
     align-items: flex-start;
-    padding: 0 20px;
+    padding: 0 56px;
     font-family: "Poppins", sans-serif;
 }
 

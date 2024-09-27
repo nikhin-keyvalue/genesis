@@ -4,7 +4,12 @@ import { baseApi } from "../../api"; // Import baseApi
 export const generateApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "/users",
+      query: () => ({
+        url: "/health",
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }),
     }),
   }),
   overrideExisting: false,
