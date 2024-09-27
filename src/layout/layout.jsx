@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
 
       <div className="flex items-center h-screen w-screen">
         <ExpandableSidebar />
-        <div className="flex items-center justify-center h-screen w-full z-10">
+        <div className="flex items-center justify-center h-screen w-[calc(100%-127px)] z-10">
           {children}
         </div>
       </div>

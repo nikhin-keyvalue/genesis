@@ -27,14 +27,19 @@ export default function ExpandableSidebar() {
 
       <div className="h-full flex flex-col justify-between">
         <nav
-          className={`flex flex-col space-y-[40px] pt-[46px] ${
+          className={`flex flex-col space-y-[40px] pt-[46px] transition-all duration-300 ease-in-out ${
             isExpanded ? "justify-start" : "justify-center"
           }`}
         >
-          <NavItem icon="AI" text="Generate test" isExpanded={isExpanded} link="/generate-test" />
+          <NavItem
+            icon="AI"
+            text="Generate"
+            isExpanded={isExpanded}
+            link="/generate-test"
+          />
           <NavItem
             icon="Document"
-            text="Your curriculum"
+            text="Your"
             isExpanded={isExpanded}
             link={"/curriculum"}
           />
@@ -66,9 +71,14 @@ function NavItem({ icon, text, isExpanded, link }) {
       }`}
     >
       <img src={`${icon}.svg`} alt="Sidenav" height="40" width="40" />
-      {isExpanded && (
-        <span className="overflow-hidden text-nowrap text-xl">{text}</span>
-      )}
+
+      <span
+        className={`overflow-hidden text-nowrap text-xl transition-all duration-300 ease-in-out  ${
+          isExpanded ? "block" : "hidden"
+        }`}
+      >
+        {text}
+      </span>
     </Link>
   );
 }

@@ -11,9 +11,19 @@ export const generateApi = baseApi.injectEndpoints({
         },
       }),
     }),
+    generateQuestions: builder.mutation({
+      query: (data) => ({
+        url: "/api/agent/chat",
+        method: "POST",
+        body: data,
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
 // Export the auto-generated hook for the `getUsers` query
-export const { useGetUsersQuery } = generateApi;
+export const { useGetUsersQuery, useGenerateQuestionsMutation } = generateApi;
