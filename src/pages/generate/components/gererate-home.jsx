@@ -16,53 +16,52 @@ const GenerateHome = ({ onEventClick }) => {
 
   console.log(isLoading, isSuccess, error);
 
+  const updateConversations = (conversation) => {
+    setConversations((convs) => [...convs, conversation]);
+  };
+
+  const removeLoader = () => {
+    setConversations((convs) => [...convs].slice(0, -1));
+  };
+
   useEffect(() => {
     if (isLoading) {
-      setConversations((convs) => [
-        ...convs,
-        {
-          type: "LOADING",
-        },
-      ]);
+      updateConversations({
+        type: "LOADING",
+      });
     }
   }, [isLoading]);
 
   useEffect(() => {
     if ((data, isSuccess)) {
       // const parsedData = JSON.parse(data);
-      setConversations((convs) => [...convs].slice(0, -1));
 
-      setConversations((convs) => [
-        ...convs,
-        {
-          type: "ANSWER",
-          message:
-            "I recommend you take a small test for 5 questions to help you progress...",
-          actions: [
-            {
-              title: "Take Test",
-              link: "/questions",
-            },
-            {
-              title: "Refer notes",
-              link: "/curriculum",
-            },
-          ],
-        },
-      ]);
+      removeLoader();
+      updateConversations({
+        type: "ANSWER",
+        message:
+          "I recommend you take a small test for 5 questions to help you progress...",
+        actions: [
+          {
+            title: "Take Test",
+            link: "/questions",
+          },
+          {
+            title: "Refer notes",
+            link: "/curriculum",
+          },
+        ],
+      });
     }
   }, [data, isSuccess]);
 
   useEffect(() => {
     if (error) {
-      setConversations((convs) => [...convs].slice(0, -1));
-      setConversations((convs) => [
-        ...convs,
-        {
-          type: "ANSWER",
-          message: "Oh no! Something went wrong.!",
-        },
-      ]);
+      removeLoader();
+      updateConversations({
+        type: "ANSWER",
+        message: "Oh no! Something went wrong.!",
+      });
     }
   }, [error]);
 
