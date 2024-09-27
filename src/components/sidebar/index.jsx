@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 // import { FileText, Sparkles, Trophy } from "lucide-react";
 
 export default function ExpandableSidebar() {
@@ -14,7 +15,7 @@ export default function ExpandableSidebar() {
       onMouseLeave={() => setIsExpanded(false)}
     >
       <div
-        className={`flex items-center clash-display mb-[40px] text-[32px] font-medium justify-start ${
+        className={`flex items-center h-[30px] clash-display mb-[40px] text-[32px] font-medium justify-start ${
           isExpanded ? "text-[44px]" : "text-[30px] "
         }`}
       >
@@ -30,11 +31,12 @@ export default function ExpandableSidebar() {
             isExpanded ? "justify-start" : "justify-center"
           }`}
         >
-          <NavItem icon="AI" text="Generate test" isExpanded={isExpanded} />
+          <NavItem icon="AI" text="Generate test" isExpanded={isExpanded} link="/generat" />
           <NavItem
             icon="Document"
             text="Your curriculum"
             isExpanded={isExpanded}
+            link={"/curriculum"}
           />
         </nav>
         <div className="p-4 flex items-center">
@@ -55,10 +57,11 @@ export default function ExpandableSidebar() {
   );
 }
 
-function NavItem({ icon, text, isExpanded }) {
+function NavItem({ icon, text, isExpanded, link }) {
   return (
-    <div
-      className={`flex items-center  space-x-4 rounded-lg cursor-pointer1 ${
+    <Link
+      to={link}
+      className={`flex items-center text-white hover:text-white space-x-4 rounded-lg cursor-pointer1 cursor-pointer ${
         isExpanded ? "justify-start" : "justify-center"
       }`}
     >
@@ -66,7 +69,7 @@ function NavItem({ icon, text, isExpanded }) {
       {isExpanded && (
         <span className="overflow-hidden text-nowrap text-xl">{text}</span>
       )}
-    </div>
+    </Link>
   );
 }
 
@@ -74,4 +77,5 @@ NavItem.propTypes = {
   icon: PropTypes.element.isRequired,
   text: PropTypes.string.isRequired,
   isExpanded: PropTypes.bool.isRequired,
+  link: PropTypes.string.isRequired,
 };
