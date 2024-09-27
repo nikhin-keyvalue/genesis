@@ -14,7 +14,7 @@ export default function Sample() {
         } `}
       >
         <Chat
-          questionWithAnswer={{
+          context={{
             question:
               "A particle is projected with a velocity of 20 m/s at an angle of 30° with the horizontal. What is the maximum height reached by the particle?",
             options: ["5 m", "10 m", "15 m", "20 m"],

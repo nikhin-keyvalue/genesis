@@ -6,7 +6,7 @@ import { IconButton } from "../button";
 import ChatList from "../chat-list";
 import { useGenerateAssessmentQuestionsMutation } from "../../pages/generate/api";
 
-const Chat = ({ questionWithAnswer }) => {
+const Chat = ({ context }) => {
   const [input, setInput] = useState("");
   const [conversations, setConversations] = useState([]);
   const useDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -26,7 +26,7 @@ const Chat = ({ questionWithAnswer }) => {
     return {
       context: {
         user: useDetails,
-        questionWithAnswer,
+        questionWithAnswer: context,
       },
       query: input,
     };
@@ -97,7 +97,7 @@ const Chat = ({ questionWithAnswer }) => {
       </div>
 
       <div className="p-5 bg-[rgba(17,17,17,1)] mb-2 rounded-lg text-sm backdrop-blur-lg">
-        {questionWithAnswer.question}
+        {context.question}
       </div>
 
       <div className="h-[calc(100%-370px)]">
@@ -128,7 +128,7 @@ const Chat = ({ questionWithAnswer }) => {
 };
 
 Chat.propTypes = {
-  questionWithAnswer: PropTypes.any,
+  context: PropTypes.any,
 };
 
 export default Chat;
