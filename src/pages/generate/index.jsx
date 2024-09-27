@@ -60,10 +60,10 @@ const GenerateQuestion = () => {
 
   const onActionClick = (action) => {
     if (action === "ATTEND_EXAM") {
-      setLoading(null, true);
-      generateQuestions(getPayload(true));
+      setLoading(true);
+      generateQuestions(getPayload(null, true));
     } else if (action === "REFER_NOTES") {
-      navigate("/curriculum");
+      // navigate("/curriculum");
     }
   };
 
@@ -79,20 +79,26 @@ const GenerateQuestion = () => {
     if ((data, isSuccess)) {
       removeLoader();
 
-      if (data?.question) {
-        updateConversations({
-          type: "ANSWER",
-          message: data.question,
-          actions: getFormattedActions(data.actions),
-        });
-      } else {
+      if (!data?.question) {
         updateConversations({
           type: "ANSWER",
           message: "Oh no! Something went wrong.!",
         });
       }
+
+      if (loading) {
+        setLoading(false);
+        localStorage.setItem("questions", JSON.stringify(data));
+        navigate("/questions");
+      } else {
+        updateConversations({
+          type: "ANSWER",
+          message: data.question,
+          actions: getFormattedActions(data.actions),
+        });
+      }
     }
-  }, [data, isSuccess]);
+  }, [data, isSuccess, loading, navigate]);
 
   useEffect(() => {
     if (error) {
@@ -105,13 +111,15 @@ const GenerateQuestion = () => {
   }, [error]);
 
   const onClick = (question) => {
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
     setSelectedQuestion(question);
     setConversations((convs) => [
       ...convs,
       {
-        type: "QUESTION",
-        message: question,
-        time: "12:34 PM",
+      type: "QUESTION",
+      message: question,
+      time: currentTime,
       },
     ]);
 
