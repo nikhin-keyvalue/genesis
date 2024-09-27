@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Button = ({ className, children, onClick }) => (
   <button
-    className={`w-full h-[48px] bg-[#DE5327] color-white flex items-center justify-center  outline-none ${className}`}
+    className={`w-full h-[40px] bg-[#DE5327] color-white flex items-center justify-center  outline-none ${className}`}
     onClick={onClick}
   >
     {children}
