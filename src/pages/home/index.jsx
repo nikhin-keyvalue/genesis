@@ -57,6 +57,8 @@ const fileConfig = {
   ],
 }
 
+const topic = "phy";
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -74,7 +76,6 @@ const maxWidth = 800;
 
 
 export default function Sample() {
-  const [topic, setTopic] = useState('phy')
   const [pdfs, setPdfs] = useState([]);
   const [file, setFile] = useState('');
   const [numPages, setNumPages] = useState();
