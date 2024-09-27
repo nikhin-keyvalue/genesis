@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import "./questionBox.css";
+import Timer from "./Timer";
 
 const QuestionBox = ({
   question,
@@ -22,14 +23,12 @@ const QuestionBox = ({
   return (
     <div className="question-box">
       <div className="question-header">
-        <p>Q1</p>
-        <p>
-          20:21 <span>left</span>
-        </p>
+        <p>{`Q${question.index}`}</p>
+        <Timer initialTime={4821}/>
       </div>
       <p className="question">{question.question}</p>
       <div className="options-list">
-        {question.options.map((option, index) => (
+        {question.options?.map((option, index) => (
           <div key={index} className="option">
             <label key={index} className="radio-container">
               <input
@@ -50,7 +49,6 @@ const QuestionBox = ({
           </div>
         ))}
       </div>
-      {/* TODO: disable for last and first question */}
       <div className="buttons">
         <button className="clear" onClick={handleClearClick}>
           Clear Selection
@@ -67,7 +65,6 @@ const QuestionBox = ({
           <button
             className="next"
             onClick={handleNextBtn}
-            disabled={isLastQuestion && percentage !== 100}
           >
             <span>{isLastQuestion ? "Submit" : "Next"}</span>
             <img src="/arrow-left.png" alt="next" />

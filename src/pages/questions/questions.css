@@ -1,7 +1,8 @@
 .progressbar-question-container {
     position: relative;
-    width: 80%;
+    width: 80vw;
     flex: 0.8;
+    height: 100%;
 }
 
 .progressbar-container {
@@ -9,10 +10,11 @@
     position: absolute;
     z-index: 99;
     width: 100%;
-    padding: 0 56px;
+    padding: 0 30px;
 }
 
 .question-container {
+    height: 75vh;
     display: flex;
     align-items: flex-start;
     padding: 0 56px;
