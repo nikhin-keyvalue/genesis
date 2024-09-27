@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Landing = () => {
+const Login = () => {
   const [message, setMessage] = useState("Welcome to the Landing Page!");
 
   return (
@@ -13,4 +13,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Login;

@@ -1,6 +1,6 @@
-import Landing from "../pages/login";
+import PropTypes from 'prop-types';
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
     <div className="relative">
       <div className="glow-container">
@@ -9,10 +9,14 @@ const Layout = () => {
         <div className="ball2"></div>
       </div>
       <div className="w-screen h-screen flex items-center justify-center z-10 fixed top-0 left-0">
-        <Landing />
+        {children}
       </div>
     </div>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;
