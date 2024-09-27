@@ -9,5 +9,18 @@ export const baseApi = createApi({
     headers.set("ngrok-skip-browser-warning", "true" ); // Example of custom header
     return headers;
   },
-  endpoints: () => ({}), // Empty endpoints here, will be extended later
+  endpoints: (builder) => ({
+    createUser: builder.mutation({
+      query: (userData) => ({
+        url: '/user/',
+        method: 'POST',
+        body: userData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }),
+    }),
+  }),
 });
+
+export const { useCreateUserMutation } = baseApi;
