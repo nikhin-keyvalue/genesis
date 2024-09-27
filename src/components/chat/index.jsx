@@ -4,15 +4,28 @@ import { useState, useEffect } from "react";
 import { IconButton } from "../button";
 
 import ChatList from "../chat-list";
-import { useGenerateAssessmentQuestionsMutation } from "../../pages/generate/api";
+import {
+  useGenerateAssessmentQuestionsMutation,
+  useGenerateUserExplainQuestionsMutation,
+} from "../../pages/generate/api";
 
-const Chat = ({ context }) => {
+const Chat = ({ isUserExplainFlow, context }) => {
   const [input, setInput] = useState("");
   const [conversations, setConversations] = useState([]);
   const useDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   const [generateAssessmentQuestions, { data, isLoading, isSuccess, error }] =
     useGenerateAssessmentQuestionsMutation();
+
+  const [
+    generateUserExplainQuestions,
+    {
+      data: userExpData,
+      isLoading: userExpLoading,
+      isSuccess: userExpSuccess,
+      error: userError,
+    },
+  ] = useGenerateUserExplainQuestionsMutation();
 
   const updateConversations = (conversation) => {
     setConversations((convs) => [...convs, conversation]);
@@ -21,6 +34,12 @@ const Chat = ({ context }) => {
   const removeLoader = () => {
     setConversations((convs) => [...convs].slice(0, -1));
   };
+
+  useEffect(() => {
+    if (isUserExplainFlow && context) {
+      generateUserExplainQuestions(context);
+    }
+  }, [isUserExplainFlow, context, generateUserExplainQuestions]);
 
   const getPayload = () => {
     return {
@@ -59,7 +78,7 @@ const Chat = ({ context }) => {
         type: "LOADING",
       });
     }
-  }, [isLoading]);
+  }, [isLoading, userExpLoading]);
 
   useEffect(() => {
     if ((data, isSuccess)) {
@@ -80,6 +99,24 @@ const Chat = ({ context }) => {
   }, [data, isSuccess]);
 
   useEffect(() => {
+    if ((userExpData, userExpSuccess)) {
+      removeLoader();
+
+      if (!userExpData) {
+        updateConversations({
+          type: "ANSWER",
+          message: "Oh no! Something went wrong.!",
+        });
+      }
+
+      updateConversations({
+        type: "ANSWER",
+        message: userExpData,
+      });
+    }
+  }, [userExpData, userExpSuccess]);
+
+  useEffect(() => {
     if (error) {
       removeLoader();
       updateConversations({
@@ -87,7 +124,7 @@ const Chat = ({ context }) => {
         message: "Oh no! Something went wrong.!",
       });
     }
-  }, [error]);
+  }, [error, userError]);
 
   return (
     <div className="h-screen p-4 border-l border-[#eae8e126]">
@@ -129,6 +166,7 @@ const Chat = ({ context }) => {
 
 Chat.propTypes = {
   context: PropTypes.any,
+  isUserExplainFlow: PropTypes.bool,
 };
 
 export default Chat;

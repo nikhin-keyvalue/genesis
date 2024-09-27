@@ -32,6 +32,17 @@ export const generateApi = baseApi.injectEndpoints({
         },
       }),
     }),
+
+    generateUserExplainQuestions: builder.mutation({
+      query: (data) => ({
+        url: "/api/assessment/chat",
+        method: "POST",
+        body: data,
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -41,4 +52,5 @@ export const {
   useGetUsersQuery,
   useGenerateQuestionsMutation,
   useGenerateAssessmentQuestionsMutation,
+  useGenerateUserExplainQuestionsMutation,
 } = generateApi;
