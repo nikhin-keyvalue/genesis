@@ -1,33 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-import './dropdown.css'
+import "./dropdown.css";
 
-const proficiencyLevels = ['Novice', 'Graduate', 'Professional', 'Elite']
+const proficiencyLevels = ["ELITE", "NOVICE", "GRADUATE", "PROFESSIONAL"];
 
-export default function Dropdown({title}) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedProficiency, setSelectedProficiency] = useState('Novice')
+export default function Dropdown({ title, handleInputChange }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProficiency, setSelectedProficiency] = useState("NOVICE");
 
-  const toggleDropdown = () => setIsOpen(!isOpen)
+  const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleSelect = (proficiency) => {
-    setSelectedProficiency(proficiency)
-    handleInputChange(proficiency)
-    setIsOpen(false)
-  }
+    setSelectedProficiency(proficiency);
+    handleInputChange(proficiency);
+    setIsOpen(false);
+  };
 
   return (
     <div className="w-full form-btn dropdown-wrapper">
-      <h2>
-        {title}
-      </h2>
+      <h2>{title}</h2>
       <div className="relative">
         <button
           onClick={toggleDropdown}
           className="w-full flex justify-between items-center focus:outline-none dropdown-btn"
         >
           <span>{selectedProficiency}</span>
-            <img src="/arrow-down.png" className={`${isOpen ? 'open' : 'close'}`}/>
+          <img
+            src="/arrow-down.png"
+            className={`${isOpen ? "open" : "close"}`}
+          />
         </button>
         {isOpen && (
           <div className="absolute w-full mt-1 z-10 dropdown-options">
@@ -44,5 +45,5 @@ export default function Dropdown({title}) {
         )}
       </div>
     </div>
-  )
+  );
 }
