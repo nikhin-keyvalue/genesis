@@ -1,97 +1,16 @@
 import PropTypes from "prop-types";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button, IconButton } from "../../../components/button";
 import ChatList from "../../../components/chat-list";
-import { useGenerateQuestionsMutation } from "../api";
 
-const GenerateHome = ({ onEventClick }) => {
+const GenerateHome = ({ conversations, onClick, onEventClick }) => {
   const [input, setInput] = useState("");
-  const [conversations, setConversations] = useState([]);
-
-  const [generateQuestions, { data, isLoading, isSuccess, error }] =
-    useGenerateQuestionsMutation();
 
   const hasConversations = !!conversations.length;
 
-  console.log(isLoading, isSuccess, error);
-
-  const updateConversations = (conversation) => {
-    setConversations((convs) => [...convs, conversation]);
-  };
-
-  const removeLoader = () => {
-    setConversations((convs) => [...convs].slice(0, -1));
-  };
-
-  useEffect(() => {
-    if (isLoading) {
-      updateConversations({
-        type: "LOADING",
-      });
-    }
-  }, [isLoading]);
-
-  useEffect(() => {
-    if ((data, isSuccess)) {
-      // const parsedData = JSON.parse(data);
-
-      removeLoader();
-      updateConversations({
-        type: "ANSWER",
-        message:
-          "I recommend you take a small test for 5 questions to help you progress...",
-        actions: [
-          {
-            title: "Take Test",
-            link: "/questions",
-          },
-          {
-            title: "Refer notes",
-            link: "/curriculum",
-          },
-        ],
-      });
-    }
-  }, [data, isSuccess]);
-
-  useEffect(() => {
-    if (error) {
-      removeLoader();
-      updateConversations({
-        type: "ANSWER",
-        message: "Oh no! Something went wrong.!",
-      });
-    }
-  }, [error]);
-
-  const onClick = () => {
+  const onBtnClick = () => {
+    onClick(input);
     setInput("");
-
-    setConversations((convs) => [
-      ...convs,
-      {
-        type: "QUESTION",
-        message: input,
-        time: "12:34 PM",
-      },
-    ]);
-
-    generateQuestions({
-      context: {
-        user: {
-          id: "0f682b27-cff1-46ea-b3f2-85147f8ed7ae",
-          name: "Alan Walker",
-          phone: "9895149915",
-          expectedRank: "100",
-          summary: "I want to get rank - 100 in GATE exam",
-          institution: "XYLEM",
-          exam: "GATE",
-          proficiency: "ELITE",
-        },
-      },
-      query: input,
-    });
   };
 
   return (
@@ -131,7 +50,7 @@ const GenerateHome = ({ onEventClick }) => {
               onChange={(e) => setInput(e.target.value)}
             />
           )}
-          <Button onClick={onClick} className="!w-[88px]">
+          <Button onClick={onBtnClick} className="!w-[88px]">
             <img src="Generate.svg" alt="Generate" />
           </Button>
         </div>
