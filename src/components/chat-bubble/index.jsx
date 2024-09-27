@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const SendChatBubble = ({ message, time }) => (
   <div className="w-full flex flex-col items-end ">
-    <div className="max-w-[80%] flex flex-col items-end ">
+    <div className="max-w-[90%] flex flex-col items-end ">
       <div className="bg-[#262626] px-[12px] py-[10px] rounded-lg">
         <p>{message}</p>
       </div>
@@ -42,7 +42,7 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
 
   return (
     <div className="w-full flex flex-col items-start">
-      <div className="max-w-[80%] flex flex-col items-start ">
+      <div className="max-w-[90%] flex flex-col items-start ">
         <div className="text-[#EAE8E1] text-base">{currentText}</div>
         {!!actions?.length && !isTyping && (
           <div className="flex items-center gap-2 mt-3">
@@ -63,17 +63,24 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
   );
 };
 
-const LoadingChat = () => (
+const LoadingChat = ({ isLoaded }) => (
   <div className="w-full flex flex-col items-start">
     <div className=" flex flex-col items-start">
-      <div className="bg-[#282828] w-[110px] py-2 px-4 flex items-center rounded-lg">
+      <div
+        className="bg-[#282828] py-2 px-4 flex items-center rounded-lg"
+        style={{ width: isLoaded ? 70 : 110 }}
+      >
         <img src="ai.png" alt="AI" width="12px" height="12px" />
         <p className="text-[#EAE8E1] font-medium text-base mx-2">M</p>
-        <div className="snippet ml-4" data-title="dot-flashing">
-          <div className="stage">
-            <div className="dot-flashing"></div>
+        {!isLoaded ? (
+          <div className="snippet ml-4" data-title="dot-flashing">
+            <div className="stage">
+              <div className="dot-flashing"></div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <span className="text-red-500 text-3xl ml-1 mb-1 leading-4 relative top-[-2px] left-[-10px]">.</span>
+        )}
       </div>
     </div>
   </div>
@@ -85,13 +92,17 @@ const ChatBubble = ({ chat, onEventClick, scrollRef }) => {
       return <SendChatBubble message={chat.message} time={chat.time} />;
     case "ANSWER":
       return (
-        <RecieveChatBubble
-          message={chat.message}
-          time={chat.time}
-          actions={chat.actions}
-          onEventClick={onEventClick}
-          scrollRef={scrollRef}
-        />
+        <div>
+          <LoadingChat isLoaded={true} />
+          <div className="mb-2" />
+          <RecieveChatBubble
+            message={chat.message}
+            time={chat.time}
+            actions={chat.actions}
+            onEventClick={onEventClick}
+            scrollRef={scrollRef}
+          />
+        </div>
       );
     case "LOADING":
       return <LoadingChat />;
@@ -114,7 +125,7 @@ RecieveChatBubble.propTypes = {
 
 LoadingChat.propTypes = {
   message: PropTypes.string.isRequired,
-  time: PropTypes.string,
+  isLoaded: PropTypes.boolean,
 };
 
 ChatBubble.propTypes = {

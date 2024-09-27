@@ -462,41 +462,6 @@ html {
 }
 
 /* # dot loader */
-.loader {
-  margin-left: 30px;
-  width: 15px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  animation: l5 1s infinite linear alternate;
-}
-
-@keyframes l5 {
-  0% {
-    box-shadow:
-      20px 0 #E64a19,
-      -20px 0 #E64a1902;
-    background: #E64a19;
-  }
-  33% {
-    box-shadow:
-      20px 0 #E64a19,
-      -20px 0 #E64a1902;
-    background: #E64a1902;
-  }
-  66% {
-    box-shadow:
-      20px 0 #E64a1902,
-      -20px 0 #E64a19;
-    background: #E64a1902;
-  }
-  100% {
-    box-shadow:
-      20px 0 #E64a1902,
-      -20px 0 #E64a19;
-    background: #E64a19;
-  }
-}
-
 
 .dot-flashing {
   position: relative;
