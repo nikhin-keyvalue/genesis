@@ -21,7 +21,7 @@ const RecieveChatBubble = ({ message, actions, onEventClick, scrollRef }) => {
   useEffect(() => {
     let timeout;
 
-    if (currentIndex <= message.length - 1) {
+    if (currentIndex <= message?.length - 1) {
       timeout = setTimeout(() => {
         setCurrentText((prevText) => prevText + message[currentIndex]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
