@@ -27,19 +27,19 @@ export default function ExpandableSidebar() {
 
       <div className="h-full flex flex-col justify-between">
         <nav
-          className={`flex flex-col space-y-[40px] pt-[46px] transition-all duration-300 ease-in-out ${
+          className={`flex flex-col space-y-[40px] pt-[46px] text-base transition-all duration-300 ease-in-out ${
             isExpanded ? "justify-start" : "justify-center"
           }`}
         >
           <NavItem
             icon="AI"
-            text="Generate"
+            text="Generate test"
             isExpanded={isExpanded}
             link="/generate-test"
           />
           <NavItem
             icon="Document"
-            text="Your"
+            text="Your curriculum"
             isExpanded={isExpanded}
             link={"/curriculum"}
           />
