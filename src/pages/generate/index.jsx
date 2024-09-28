@@ -33,7 +33,7 @@ const GenerateQuestion = () => {
   const getFormattedActions = (actions) => {
     const formattedActionsList = [];
 
-    actions.forEach((action) => {
+    actions?.forEach((action) => {
       if (action === "ATTEND_EXAM") {
         formattedActionsList.push({
           title: "Take Test",

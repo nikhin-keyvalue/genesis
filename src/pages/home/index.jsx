@@ -9,55 +9,61 @@ import "./sample.css";
 
 
 import acids from './pdfs/chem/acids.pdf'
-import alcohols from './pdfs/chem/acids.pdf'
-import hydrocarbons from './pdfs/chem/acids.pdf'
-import reaction_mechanism from './pdfs/chem/acids.pdf'
+import alcohols from './pdfs/chem/alcohols.pdf'
+import hydrocarbons from './pdfs/chem/hydrocarbons.pdf'
+import reaction_mechanism from './pdfs/chem/reaction_mechanism.pdf'
 
 import gravitation from './pdfs/phy/gravitation.pdf'
 import thermodynamics from './pdfs/phy/thermodynamics.pdf'
 import units_and_measurements from './pdfs/phy/units_and_measurements.pdf'
 import waves from './pdfs/phy/waves.pdf'
+import Chat from "../../components/chat";
 
 const fileConfig = {
   phy: [
     {
-      name: 'gravitation',
+      key: 'gravitation',
       file: gravitation,
+      name: 'Gravitation',
     },
     {
-      name: 'thermodynamics',
+      key: 'thermodynamics',
       file: thermodynamics,
     },
     {
-      name: 'units_and_measurements',
+      key: 'units_and_measurements',
       file: units_and_measurements,
     },
     {
-      name: 'waves',
+      key: 'waves',
       file: waves,
     },
   ],
   chem: [
     {
-      name: 'acids',
+      key: 'acids',
       file: acids,
+      name: 'Acids',
     },
     {
-      name: 'alcohols',
+      key: 'alcohols',
       file: alcohols,
+      name: 'Alcohols',
     },
     {
-      name: 'hydrocarbons',
+      key: 'hydrocarbons',
       file: hydrocarbons,
+      name: 'Hydrocarbons',
     },
     {
-      name: 'reaction_mechanism',
+      key: 'reaction_mechanism',
       file: reaction_mechanism,
+      name: 'Reaction Mechanism',
     },
   ],
 }
 
-const topic = "phy";
+const topic = "chem";
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -138,15 +144,19 @@ export default function Sample() {
   };
 
   const handleBreadcrumbClick = (pdf) => {
+    console.log(pdf)
     setFile(pdf)
+    setPopupVisible(false);
   }
 
   const handleTakeTest = () => {
+    setPopupVisible(false);
 
   }
 
   const handleExplain = () => {
     setOpenChat(true)
+    setPopupVisible(false);
   }
 
   return (
@@ -157,8 +167,8 @@ export default function Sample() {
             <div className="h-line" />
             {pdfs.map((pdf, index) => (
               <button
-                key={pdf.name}
-                className={`breadcrumbs-btn ${file.name === pdf.name ? 'active' : ''}`}
+                key={pdf.key}
+                className={`breadcrumbs-btn ${file.key === pdf.key ? 'active' : ''}`}
                 onClick={() => handleBreadcrumbClick(pdf)}
               >
                 {pdf.name}
@@ -196,6 +206,7 @@ export default function Sample() {
       {popupVisible && (
         <div
           style={{
+            cursor: 'pointer',
             position: "absolute",
             top: popupPosition.top,
             left: popupPosition.left,
@@ -219,6 +230,19 @@ export default function Sample() {
           <p>Explain with AI</p>
         </div>
       )}
+
+      <div
+        style={{zIndex: 10}}
+        className={`w-[500px] transition-all duration-500 ease-in-out  shadow-lg fixed top-0 ${openChat ? "right-0" : "right-[-500px]"
+          } `}
+      >
+        <Chat
+        isUserExplainFlow={true}
+        context={{
+          sub_topic: file.key,
+          selected_text: selectedText
+        }} />
+      </div>
     </div>
   );
 }
