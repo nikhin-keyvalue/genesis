@@ -252,7 +252,7 @@ export default function Sample() {
           sub_topic: file.key,
           selected_text: selectedText
         }}
-        onCloseClick={()=>setPopupVisible(false)} />
+        onCloseClick={()=> setOpenChat(false)} />
       </div>
     </div>
   );
