@@ -30,16 +30,10 @@ const examCards = [
 ];
 
 function Card({ children, onClick, data, selectedExam }) {
-  console.log("🚀 ~ Card ~ { children, onClick, data, selectedExam }:", {
-    children,
-    onClick,
-    data,
-    selectedExam,
-  });
   return (
     <div className="relative h-full">
       <div
-        className={`h-full overflow-hidden rounded-lg bg-cover bg-center bg-no-repeat bg-[url('examcardbg.png')] border border-[#EAE8E11A] rounded-[23px] cursor-pointer ${
+        className={`h-full overflow-hidden rounded-lg bg-cover bg-center bg-no-repeat bg-[url('examcardbg.png')] border rounded-[23px] cursor-pointer ${
           data.key !== selectedExam
             ? "border-[#EAE8E11A]"
             : "border-[#DE532766]"

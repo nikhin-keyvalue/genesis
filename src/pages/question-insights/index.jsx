@@ -20,13 +20,11 @@ const Insights = () => {
           percentile="86.23"
         />
         <PerformanceFeedback
-          categorySplit={{
-            EASY: "1/1",
-            HARD: "2/2",
-            MEDIUM: "1/2",
-          }}
-          performanceComment="You're on the right track! Your grasp on core physics concepts is strong"
-          suggestion="You're on the right track! Your grasp on core physics concepts is strong"
+          categorySplit={accuracyData.categoryAccuracy}
+          performanceComment={
+            testSummary?.properties?.overall_feedback?.description ||
+            "You're on the right track! Your grasp on core physics concepts is strong"
+          }
         />
       </div>
       <QuestionInsights
