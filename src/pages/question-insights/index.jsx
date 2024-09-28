@@ -49,7 +49,7 @@ const Insights = () => {
           openChat ? "right-0" : "right-[-500px]"
         }`}
       >
-        <Chat isUserExplainFlow={false} context={currentQuestion} />
+        <Chat isUserExplainFlow={false} context={currentQuestion} onCloseClick={() => setOpenChat(false)}/>
       </div>
     </div>
   );

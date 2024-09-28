@@ -11,7 +11,7 @@ import {
 import useVoiceAssistant from "../../hooks/useVoiceAssistant";
 import ChatAudio from "../chat-audio";
 
-const Chat = ({ isUserExplainFlow, context }) => {
+const Chat = ({ isUserExplainFlow, context, onCloseClick }) => {
   const [input, setInput] = useState("");
   const [isAudioOpen, setIsAudioOpen] = useState(false);
   const [conversations, setConversations] = useState([]);
@@ -136,7 +136,10 @@ const Chat = ({ isUserExplainFlow, context }) => {
   }, [error, userError]);
 
   return (
-    <div className="h-screen p-4 border-l border-[#eae8e126]" style={{backgroundColor: '#111111'}}>
+    <div
+      className="relative h-screen p-4 border-l border-[#eae8e126]"
+      style={{ backgroundColor: "#111111" }}
+    >
       <div className="mt-[44px] ml-[24px] mb-[20px]">
         <img src="Logo.svg" alt="Chat Logo" />
         <div className="text-sm text-[#a89b94] mt-1 ml-[36px]">Chat away!</div>
@@ -189,6 +192,11 @@ const Chat = ({ isUserExplainFlow, context }) => {
           </div>
         </>
       )}
+      <img
+        className="absolute top-[16px] h-[16px] w-[16px] cursor-pointer"
+        src="close.png"
+        onClick={onCloseClick}
+      />
     </div>
   );
 };

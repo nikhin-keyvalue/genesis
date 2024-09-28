@@ -29,6 +29,7 @@ export default function Sample() {
             selected_answer: "10 m",
             time_took: 1.013,
           }}
+          onCloseClick={() => setOpen(false)}
         />
       </div>
     </div>

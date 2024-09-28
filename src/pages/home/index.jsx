@@ -250,7 +250,8 @@ export default function Sample() {
         context={{
           sub_topic: file.key,
           selected_text: selectedText
-        }} />
+        }}
+        onCloseClick={()=>setPopupVisible(false)} />
       </div>
     </div>
   );
