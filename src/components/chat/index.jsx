@@ -9,9 +9,11 @@ import {
   useGenerateUserExplainQuestionsMutation,
 } from "../../pages/generate/api";
 import useVoiceAssistant from "../../hooks/useVoiceAssistant";
+import ChatAudio from "../chat-audio";
 
 const Chat = ({ isUserExplainFlow, context }) => {
   const [input, setInput] = useState("");
+  const [isAudioOpen, setIsAudioOpen] = useState(false);
   const [conversations, setConversations] = useState([]);
   const useDetails = JSON.parse(localStorage.getItem("userDetails"));
   const { isRecording, startRecording, stopRecording, messages } =
@@ -139,40 +141,54 @@ const Chat = ({ isUserExplainFlow, context }) => {
         <img src="Logo.svg" alt="Chat Logo" />
         <div className="text-sm text-[#a89b94] mt-1 ml-[36px]">Chat away!</div>
       </div>
-
-      <div className="p-5 bg-[rgba(17,17,17,1)] mb-2 rounded-lg text-sm backdrop-blur-lg">
-        {context.question}
-      </div>
-
-      <div className="h-[calc(100%-370px)]">
-        <ChatList
-          conversations={conversations}
-          onEventClick={() => {
-            // onEventClick
-          }}
-          className="h-[calc(100%-20px)]"
-        />
-      </div>
-
-      <div className="p-4 bg-[#5555554d] rounded-xl border border-[#1111111a]">
-        <div className="flex items-center">
-          <textarea
-            value={input}
-            placeholder="Ask anything related to what you want to know about this question or topic..."
-            className="h-[calc(100%-57px)] mb-[5px] p-0 resize-none overflow-auto w-full flex-1 bg-transparent pb-1.5 text-base outline-none ring-0 placeholder:[#EAE8E1] text-[#EAE8E1]"
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={onKeyDown}
-          />
-        </div>
-
-        <IconButton
-          icon="/Attach.svg"
-          size={40}
-          onClick={() => {
-            startRecording();
+      {isAudioOpen ? (
+        <ChatAudio
+          onClose={() => {
+            setIsAudioOpen(false);
+            stopRecording();
           }}
         />
-      </div>
+      ) : (
+        <>
+          <div className="p-5 bg-[rgba(17,17,17,1)] mb-2 rounded-lg text-sm backdrop-blur-lg">
+            {context.question}
+          </div>
+
+          <div className="h-[calc(100%-370px)]">
+            <ChatList
+              conversations={conversations}
+              onEventClick={() => {
+                // onEventClick
+              }}
+              className="h-[calc(100%-20px)]"
+            />
+          </div>
+
+          <div className="p-4 bg-[#5555554d] rounded-xl border border-[#1111111a]">
+            <div className="flex items-center">
+              <textarea
+                value={input}
+                placeholder="Ask anything related to what you want to know about this question or topic..."
+                className="h-[calc(100%-57px)] mb-[5px] p-0 resize-none overflow-auto w-full flex-1 bg-transparent pb-1.5 text-base outline-none ring-0 placeholder:[#EAE8E1] text-[#EAE8E1]"
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={onKeyDown}
+              />
+
+              <div
+                className="flex items-center ml-2 justify-center h-[40px] w-[40px] rounded-full bg-[#272727] cursor-pointer hover:bg-[#555454]"
+                onClick={() => {
+                  startRecording();
+                  setIsAudioOpen(true);
+                }}
+              >
+                <img src="Media.svg" alt="" />
+              </div>
+            </div>
+
+            <IconButton icon="/Attach.svg" size={40} onClick={null} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
