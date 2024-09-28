@@ -1,10 +1,12 @@
 import { Button } from "../../../components/button";
+import Chat from "../../../components/chat";
 
 const QuestionInsights = ({
   currentQuestion,
   testSummary,
   handleQuestionNumberClick,
   questions,
+  onOpenChat,
 }) => {
   const optionAlphabet = {
     0: "a",
@@ -32,7 +34,7 @@ const QuestionInsights = ({
   ];
 
   return (
-    <div className="p-10 h-full insights-question-container w-full  bg-[#A0A0A010] backdrop-blur-[30px] flex flex-col rounded-[24px] justify-between">
+    <div className="px-10 !py-8 !h-full insights-question-container w-full  bg-[#A0A0A010] backdrop-blur-[30px] flex flex-col rounded-[24px] justify-between">
       <div className="poppins font-normal text-[16px] text-[#808080]">
         Question review
       </div>
@@ -112,7 +114,10 @@ const QuestionInsights = ({
         </div>
         <div className="w-[1px] h-[48px] bg-[#3A3A3A] mx-4" />
 
-        <Button className="font-medium text-[16px] clash-display text-[#DE5327] gap-2 h-[48px] button-no-outline max-w-[220px]">
+        <Button
+          className="font-medium text-[16px] clash-display text-[#DE5327] gap-2 h-[48px] button-no-outline max-w-[220px]"
+          onClick={onOpenChat}
+        >
           <img className="h-[25px]" src="ai.png" />
           Explain with AI
           <img src="arrow-right-orange.png" />
