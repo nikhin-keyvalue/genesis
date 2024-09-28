@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
 import ExpandableSidebar from "../components/sidebar";
+import { useLocation } from "react-router-dom";
 
 const Layout = ({ children }) => {
+  const path = useLocation();
+  const { pathname } = path;
   return (
     <div className="relative">
       <div className="glow-container">
@@ -11,7 +14,9 @@ const Layout = ({ children }) => {
       </div>
 
       <div className="flex items-center h-screen w-screen">
-        <ExpandableSidebar />
+        {!(pathname.includes("login") || pathname.includes("onboarding")) && (
+          <ExpandableSidebar />
+        )}
         <div className="flex items-center justify-center h-screen w-[calc(100%-127px)] z-10">
           {children}
         </div>
