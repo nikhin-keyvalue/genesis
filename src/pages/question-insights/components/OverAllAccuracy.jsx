@@ -22,7 +22,7 @@ const OverAllAccuracy = ({ accuracy, percentile }) => {
         </div>
         <div className="flex items-center justify-between">
           <div>
-            <div className="ml-6">
+            <div>
               <div className=" poppins font-normal text-[#808080] text-[16px]">
                 Your percentile
               </div>
@@ -36,7 +36,7 @@ const OverAllAccuracy = ({ accuracy, percentile }) => {
             <div className="poppins font-normal text-[#808080] text-[16px]">
               Overall accuracy
             </div>
-            <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-center items-center gap-6">
               <div className="relative w-10 h-10 flex">
                 <svg className="w-full h-full" viewBox="0 0 100 100">
                   <circle

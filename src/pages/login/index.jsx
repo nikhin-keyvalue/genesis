@@ -39,8 +39,11 @@ const Login = () => {
             value={phoneNumber}
             onChange={handleInputChange}
           />
-          <Button className="button-primary" onClick={handleContinueClick}>
-            <div>Continue</div>
+          <Button
+            className="button-primary h-[56px]"
+            onClick={handleContinueClick}
+          >
+            <div className="text-[20px] font-medium">Continue</div>
             <img src="arrow-right.png" className="ml-1" />
           </Button>
         </div>

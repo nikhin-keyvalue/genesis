@@ -90,8 +90,12 @@ const Onboarding = () => {
           <div className={`${step === 4 ? "w-[210px]" : "w-[140px]"}`}>
             {step !== 4 ? (
               <Button
-                className="flex gap-2 button-primary poppins h-[48px] items-center"
-                onClick={goToNextStep}
+                className={`flex gap-2 button-primary poppins h-[48px] items-center ${
+                  step === 2 && formData.exam === "" ? "cursor-not-allowed" : ""
+                }`}
+                onClick={
+                  step === 2 && formData.exam === "" ? () => {} : goToNextStep
+                }
               >
                 <div>Next</div>
                 <img src="arrow-right.png"></img>

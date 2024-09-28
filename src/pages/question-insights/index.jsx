@@ -18,7 +18,7 @@ const Insights = () => {
 
   const navigateToCuratedCurriculum = () => {
     navigate("/curated-curriculum");
-  }
+  };
 
   return (
     <div className="w-full h-full p-24 flex gap-4">
@@ -31,8 +31,8 @@ const Insights = () => {
           handleBtn={navigateToCuratedCurriculum}
           categorySplit={accuracyData.categoryAccuracy}
           performanceComment={
-            testSummary?.properties?.overall_feedback?.description ||
-            "You're on the right track! Your grasp on core physics concepts is strong"
+            testSummary?.overall_feedback ||
+            "You're on the right track! Your grasp on core chemistry concepts is strong"
           }
         />
       </div>
@@ -49,7 +49,7 @@ const Insights = () => {
           openChat ? "right-0" : "right-[-500px]"
         }`}
       >
-        <Chat isUserExplainFlow={false} context={{}} />
+        <Chat isUserExplainFlow={false} context={currentQuestion} />
       </div>
     </div>
   );

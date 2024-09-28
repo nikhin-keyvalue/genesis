@@ -1,5 +1,4 @@
 import { Button } from "../../../components/button";
-import Chat from "../../../components/chat";
 
 const QuestionInsights = ({
   currentQuestion,
@@ -48,13 +47,13 @@ const QuestionInsights = ({
       <div className="flex items-center">
         {currentQuestion.selected_answer ===
         currentQuestion.options[currentQuestion.correct_answer] ? (
-          <div className="flex gap-3  items-center w-[200px]">
+          <div className="flex gap-3  items-center ">
             <img className="w-[20px] h-[20px]" src="correct.png" />
             <div className="flex flex-col">
               <div className="text-[#DE5327] text-[14px] poppins font-normal">
                 Your answer is correct
               </div>
-              <div className="poppins font-normal text-[18px] text-[#EAE8E1]">
+              <div className="poppins font-normal text-[14px] text-[#EAE8E1]">
                 {`(${
                   optionAlphabet[
                     currentQuestion.options.findIndex(
@@ -67,30 +66,32 @@ const QuestionInsights = ({
           </div>
         ) : (
           <div className="flex gap-6">
-            <div className="flex gap-3  items-center w-[144px]">
+            <div className="flex gap-3  items-center min-w-[120px]">
               <img className="w-[20px] h-[20px]" src="wrong.png" />
               <div className="flex flex-col">
                 <div className="text-[#DE5327] text-[14px] poppins font-normal">
                   Your answer
                 </div>
-                <div className="poppins font-normal text-[18px] text-[#EAE8E1]">
-                  {`(${
-                    optionAlphabet[
-                      currentQuestion.options.findIndex(
-                        (item) => item === currentQuestion.selected_answer
-                      )
-                    ]
-                  }) ${currentQuestion.selected_answer}`}
+                <div className="poppins font-normal text-[14px]  text-[#EAE8E1]">
+                  {currentQuestion.selected_answer
+                    ? `(${
+                        optionAlphabet[
+                          currentQuestion.options.findIndex(
+                            (item) => item === currentQuestion.selected_answer
+                          )
+                        ]
+                      }) ${currentQuestion.selected_answer}`
+                    : "-"}
                 </div>
               </div>
             </div>
-            <div className="flex gap-3  items-center w-[144px] ">
+            <div className="flex gap-3  items-center min-w-[90px]">
               <img className="w-[20px] h-[20px]" src="correct.png" />
               <div className="flex flex-col">
                 <div className="text-[#DE5327] text-[14px] poppins font-normal">
                   Correct answer
                 </div>
-                <div className="poppins font-normal text-[18px] text-[#EAE8E1]">
+                <div className="poppins font-normal text-[14px]  text-[#EAE8E1]">
                   {`(${optionAlphabet[currentQuestion.correct_answer]}) ${
                     currentQuestion.options[currentQuestion.correct_answer]
                   }`}
@@ -100,7 +101,7 @@ const QuestionInsights = ({
           </div>
         )}
         <div className="w-[1px] h-[48px] bg-[#3A3A3A] mx-4" />
-        <div className="flex gap-3  items-center ">
+        <div className="flex gap-3  items-center min-w-[160px]">
           <img className="w-[20px] h-[20px]" src="time.png" />
           <div className="flex flex-col">
             <div className="text-[#DE5327] text-[14px] poppins font-normal">
@@ -113,7 +114,6 @@ const QuestionInsights = ({
           </div>
         </div>
         <div className="w-[1px] h-[48px] bg-[#3A3A3A] mx-4" />
-
         <Button
           className="font-medium text-[16px] clash-display text-[#DE5327] gap-2 h-[48px] button-no-outline max-w-[220px]"
           onClick={onOpenChat}
@@ -147,7 +147,7 @@ const QuestionInsights = ({
       </div>
       <div className="text-[#EAE8E1] w-full flex flex-col gap-8">
         <div className="w-full h-[2px] bg-[#3A3A3A]" />
-        <div>
+        <div className="flex flex-col gap-4">
           <h2 className="clash-display font-medium text-[24px]">Questions</h2>
           <div className="question-number-container w-full">
             {questions.map((item) => (

@@ -12,14 +12,14 @@ const features = [
       "With our personalised feedback and mentoring features, you can achieve the goals in a short time",
   },
   {
-    title: "Ace your toughest exam with ease!",
+    title: "Custom-built for your needs!",
     subTitle:
-      "Mars offers personalised tutoring based on a calculated assessment of your strong and weak points",
+      "Recognise your strengths and potential areas for improvement to ensure you are performing to the best of your abilities",
   },
   {
-    title: "Achieve your targets easily",
+    title: "Tailored for Peak Performance",
     subTitle:
-      "With our personalised feedback and mentoring features, you can achieve the goals in a short time",
+      "Get the head start you've always desired with swift and encouraging feedback to help you get back on track and tips to master your preparation to put you miles ahead of others",
   },
 ];
 

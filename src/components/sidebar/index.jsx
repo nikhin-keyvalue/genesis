@@ -33,15 +33,15 @@ export default function ExpandableSidebar() {
         >
           <NavItem
             icon="AI"
-            text="Generate"
+            text="Insights"
             isExpanded={isExpanded}
             link="/generate-test"
           />
           <NavItem
             icon="Document"
-            text="Your"
+            text="Notes"
             isExpanded={isExpanded}
-            link={"/curriculum"}
+            link={"/curated-curriculum"}
           />
         </nav>
         <div className="p-4 flex items-center">
