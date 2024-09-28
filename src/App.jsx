@@ -5,7 +5,7 @@ import Home from "./pages/home";
 import GenerateQuestion from "./pages/generate";
 import Questions from "./pages/questions";
 import Onboarding from "./pages/onboarding";
-import Insights from "./pages/insights";
+import Insights from "./pages/question-insights";
 
 import "./App.css";
 
