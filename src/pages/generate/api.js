@@ -35,7 +35,7 @@ export const generateApi = baseApi.injectEndpoints({
 
     generateUserExplainQuestions: builder.mutation({
       query: (data) => ({
-        url: "/api/assessment/chat",
+        url: "/user/explain",
         method: "POST",
         body: data,
         headers: {

@@ -33,7 +33,7 @@ const GenerateQuestion = () => {
   const getFormattedActions = (actions) => {
     const formattedActionsList = [];
 
-    actions.forEach((action) => {
+    actions?.forEach((action) => {
       if (action === "ATTEND_EXAM") {
         formattedActionsList.push({
           title: "Take Test",
@@ -129,7 +129,7 @@ const GenerateQuestion = () => {
   return (
     <div className="flex items-center justify-center h-screen w-full poppins">
       {loading ? (
-        <GenerateLoadingScreen />
+        <GenerateLoadingScreen title="Generating your exam..." subtitle="Make sure you are at the top of your game for this!" />
       ) : (
         <GenerateHome
           conversations={conversations}

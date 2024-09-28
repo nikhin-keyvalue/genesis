@@ -1,11 +1,70 @@
 /* eslint-disable no-unused-vars */
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useResizeObserver } from "@wojtekmaj/react-hooks";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 
 import "./sample.css";
+
+
+import acids from './pdfs/chem/acids.pdf'
+import alcohols from './pdfs/chem/alcohols.pdf'
+import hydrocarbons from './pdfs/chem/hydrocarbons.pdf'
+import reaction_mechanism from './pdfs/chem/reaction_mechanism.pdf'
+
+import gravitation from './pdfs/phy/gravitation.pdf'
+import thermodynamics from './pdfs/phy/thermodynamics.pdf'
+import units_and_measurements from './pdfs/phy/units_and_measurements.pdf'
+import waves from './pdfs/phy/waves.pdf'
+import Chat from "../../components/chat";
+
+const fileConfig = {
+  phy: [
+    {
+      key: 'gravitation',
+      file: gravitation,
+      name: 'Gravitation',
+    },
+    {
+      key: 'thermodynamics',
+      file: thermodynamics,
+    },
+    {
+      key: 'units_and_measurements',
+      file: units_and_measurements,
+    },
+    {
+      key: 'waves',
+      file: waves,
+    },
+  ],
+  chem: [
+    {
+      key: 'acids',
+      file: acids,
+      name: 'Acids',
+    },
+    {
+      key: 'alcohols',
+      file: alcohols,
+      name: 'Alcohols',
+    },
+    {
+      key: 'hydrocarbons',
+      file: hydrocarbons,
+      name: 'Hydrocarbons',
+    },
+    {
+      key: 'reaction_mechanism',
+      file: reaction_mechanism,
+      name: 'Reaction Mechanism',
+    },
+  ],
+}
+
+const topic = "chem";
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -21,15 +80,26 @@ const resizeObserverOptions = {};
 
 const maxWidth = 800;
 
+
 export default function Sample() {
-  const [file, setFile] = useState("./sample.pdf");
+  const [pdfs, setPdfs] = useState([]);
+  const [file, setFile] = useState('');
   const [numPages, setNumPages] = useState();
   const [containerRef, setContainerRef] = useState(null);
   const [containerWidth, setContainerWidth] = useState();
+  const [openChat, setOpenChat] = useState(false);
 
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 });
   const [selectedText, setSelectedText] = useState("");
+
+  useEffect(() => {
+    if (fileConfig[topic]) {
+      setPdfs(fileConfig[topic]);
+      setFile(fileConfig[topic][0]);
+    }
+  }, [fileConfig])
+
 
   const onResize = useCallback((entries) => {
     const [entry] = entries;
@@ -73,12 +143,42 @@ export default function Sample() {
     }
   };
 
+  const handleBreadcrumbClick = (pdf) => {
+    console.log(pdf)
+    setFile(pdf)
+    setPopupVisible(false);
+  }
+
+  const handleTakeTest = () => {
+    setPopupVisible(false);
+
+  }
+
+  const handleExplain = () => {
+    setOpenChat(true)
+    setPopupVisible(false);
+  }
+
   return (
     <div className="Example">
       <div className="Example__container">
-        <div className="Example__container__load">
-          <label htmlFor="file">Load from file:</label>{" "}
-          <input onChange={onFileChange} type="file" />
+        <div className="pdf-header">
+          <div className="breadcrumbs-container">
+            <div className="h-line" />
+            {pdfs.map((pdf, index) => (
+              <button
+                key={pdf.key}
+                className={`breadcrumbs-btn ${file.key === pdf.key ? 'active' : ''}`}
+                onClick={() => handleBreadcrumbClick(pdf)}
+              >
+                {pdf.name}
+              </button>
+            ))}
+          </div>
+          <button className="take-test" onClick={handleTakeTest}>
+            Take Test
+            <img src="/send.png" alt="send" />
+          </button>
         </div>
         <div
           className="Example__container__document"
@@ -86,7 +186,7 @@ export default function Sample() {
           onMouseUp={handleTextSelection}
         >
           <Document
-            file={file}
+            file={file.file}
             onLoadSuccess={onDocumentLoadSuccess}
             options={options}
           >
@@ -106,6 +206,7 @@ export default function Sample() {
       {popupVisible && (
         <div
           style={{
+            cursor: 'pointer',
             position: "absolute",
             top: popupPosition.top,
             left: popupPosition.left,
@@ -123,11 +224,25 @@ export default function Sample() {
             justifyContent: 'center',
             alignItems: 'center'
           }}
+          onClick={handleExplain}
         >
           <img src="/ai.png" alt="ai" style={{ width: '20px', height: '20px', marginRight: '10px' }} />
           <p>Explain with AI</p>
         </div>
       )}
+
+      <div
+        style={{zIndex: 10}}
+        className={`w-[500px] transition-all duration-500 ease-in-out  shadow-lg fixed top-0 ${openChat ? "right-0" : "right-[-500px]"
+          } `}
+      >
+        <Chat
+        isUserExplainFlow={true}
+        context={{
+          sub_topic: file.key,
+          selected_text: selectedText
+        }} />
+      </div>
     </div>
   );
 }

@@ -136,7 +136,7 @@ const Chat = ({ isUserExplainFlow, context }) => {
   }, [error, userError]);
 
   return (
-    <div className="h-screen p-4 border-l border-[#eae8e126]">
+    <div className="h-screen p-4 border-l border-[#eae8e126]" style={{backgroundColor: '#111111'}}>
       <div className="mt-[44px] ml-[24px] mb-[20px]">
         <img src="Logo.svg" alt="Chat Logo" />
         <div className="text-sm text-[#a89b94] mt-1 ml-[36px]">Chat away!</div>
