@@ -76,7 +76,7 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
         <div className=" border text-left border-[#403B38] text-[#bebebe] w-1/3 rounded-[8px] p-4">
         Design a 20-question mock test for UPSC History, with a 30-minute time limit.
         </div>
-        <div className=" border text-left border-[#403B38] text-[#40bebebe3B38] w-1/3 rounded-[8px] p-4">
+        <div className=" border text-left border-[#403B38] text-[#bebebe] w-1/3 rounded-[8px] p-4">
         Create a mock test for UPSC Geography, to be completed in 30 minutes. 
         </div>
       </div>
