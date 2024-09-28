@@ -108,21 +108,23 @@ const Chat = ({ isUserExplainFlow, context, onCloseClick }) => {
   }, [data, isSuccess]);
 
   useEffect(() => {
-    if ((userExpData, userExpSuccess)) {
-      removeLoader();
-
-      if (!userExpData) {
+    setTimeout(() => {
+      if ((userExpData, userExpSuccess)) {
+        removeLoader();
+  
+        if (!userExpData) {
+          updateConversations({
+            type: "ANSWER",
+            message: "Oh no! Something went wrong.!",
+          });
+        }
+  
         updateConversations({
           type: "ANSWER",
-          message: "Oh no! Something went wrong.!",
+          message: userExpData,
         });
       }
-
-      updateConversations({
-        type: "ANSWER",
-        message: userExpData,
-      });
-    }
+    }, 6000);
   }, [userExpData, userExpSuccess]);
 
   useEffect(() => {
