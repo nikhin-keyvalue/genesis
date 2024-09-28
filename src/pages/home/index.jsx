@@ -149,6 +149,7 @@ export default function Sample() {
   const handleBreadcrumbClick = (pdf) => {
     setFile(pdf)
     setPopupVisible(false);
+    setOpenChat(false)
   }
 
   const handleTakeTest = () => {
@@ -158,8 +159,8 @@ export default function Sample() {
   }
 
   const handleExplain = () => {
-    setOpenChat(true)
-    setPopupVisible(false);
+      setOpenChat(true)
+      setPopupVisible(false);
   }
 
   const onLoadProgress = () => {
