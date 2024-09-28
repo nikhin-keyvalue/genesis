@@ -24,7 +24,7 @@ const Timer = ({ initialTime }) => {
                 <img src="./timer.png" alt="timer" />
             </div>
             <span style={{
-                width: '160px',
+                width: '180px',
                 fontSize: '30px',
                 fontWeight: 500,
                 color: '#EAE8E1',
