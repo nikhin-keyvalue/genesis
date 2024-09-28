@@ -24,7 +24,7 @@ const QuestionBox = ({
     <div className="question-box">
       <div className="question-header">
         <p>{`Q${question.index}`}</p>
-        <Timer initialTime={4821}/>
+        <Timer initialTime={240}/>
       </div>
       <p className="question">{question.question}</p>
       <div className="options-list">

@@ -19,7 +19,7 @@ const Questions = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/");
+      navigate("/insights");
       localStorage.setItem("testSummary", JSON.stringify(data));
       setOpenModal(false);
     }
@@ -109,7 +109,6 @@ const Questions = () => {
         accuracy.current.totalAccuracy += 1;
         accuracy.current.subtopicAccuracy[current.difficulty] += 1;
       } else {
-        accuracy.current.totalAccuracy -= 1;
         accuracy.current.subtopicAccuracy[current.difficulty] -= 1;
       }
     }
@@ -127,11 +126,11 @@ const Questions = () => {
       }
     });
 
-    let accuracyFin = `${totalAccuracy} / ${questions.length}`;
+    let accuracyFin = `${totalAccuracy > 0 ?  totalAccuracy : 0} / ${questions.length}`;
     let categorySplit = {
-      EASY: `${subtopicAccuracy.EASY} / ${category.EASY}`,
-      MEDIUM: `${subtopicAccuracy.MEDIUM} / ${category.MEDIUM}`,
-      HARD: `${subtopicAccuracy.HARD} / ${category.HARD}`,
+      EASY: `${subtopicAccuracy.EASY > 0 ? subtopicAccuracy.EASY : 0} / ${category.EASY}`,
+      MEDIUM: `${subtopicAccuracy.MEDIUM > 0 ? subtopicAccuracy.MEDIUM : 0} / ${category.MEDIUM}`,
+      HARD: `${subtopicAccuracy.HARD > 0 ? subtopicAccuracy.HARD : 0} / ${category.HARD}`,
     };
 
     return { accuracyFin, categorySplit };
@@ -209,6 +208,7 @@ const Questions = () => {
           answered={getAnsweredCount()}
         />
       )}
+      {openModal && <Modal handleClose={handleClose} handleSubmit={submitAnswers} total={questions.length} answered={getAnsweredCount()} isLoading={isLoading}/>}
     </div>
   );
 };

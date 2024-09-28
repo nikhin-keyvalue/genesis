@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { Button } from "../../../components/button";
+import { useNavigate } from "react-router-dom";
 
 const DifficultyBar = ({ difficulty, score, color }) => {
+  const navigate = useNavigate();
+
   const [correct, total] = score.split("/").map(Number);
   const percentage = (correct / total) * 100;
 
@@ -39,6 +42,7 @@ const DifficultyBar = ({ difficulty, score, color }) => {
 export default function PerformanceFeedback({
   categorySplit,
   performanceComment,
+  handleBtn
 }) {
   return (
     <div className="w-full h-full">
@@ -76,7 +80,7 @@ export default function PerformanceFeedback({
               {performanceComment}
             </p>
           </div>
-          <Button className="font-medium text-[16px] clash-display text-[#EAE8E1] gap-2 h-[48px]">
+          <Button className="font-medium text-[16px] clash-display text-[#EAE8E1] gap-2 h-[48px]" onClick={handleBtn}>
             <img className="h-[25px]" src="white-ai.png" />
             Your curated curriculum
             <img src="arrow-right.png" />

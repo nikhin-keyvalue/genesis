@@ -14,7 +14,7 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/pdf-viewer" element={<Home />} />
+        <Route path="/curated-curriculum" element={<Home />} />
         <Route path="/generate-test" element={<GenerateQuestion />} />
         <Route path="/questions" element={<Questions />} />
         <Route path="/onboarding" element={<Onboarding />} />

@@ -18,6 +18,7 @@ import thermodynamics from './pdfs/phy/thermodynamics.pdf'
 import units_and_measurements from './pdfs/phy/units_and_measurements.pdf'
 import waves from './pdfs/phy/waves.pdf'
 import Chat from "../../components/chat";
+import Loader from "../../components/loader";
 
 const fileConfig = {
   phy: [
@@ -88,6 +89,7 @@ export default function Sample() {
   const [containerRef, setContainerRef] = useState(null);
   const [containerWidth, setContainerWidth] = useState();
   const [openChat, setOpenChat] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 });
@@ -124,6 +126,7 @@ export default function Sample() {
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
     setNumPages(nextNumPages);
+    setIsLoading(false)
   }
 
   const handleTextSelection = () => {
@@ -144,19 +147,24 @@ export default function Sample() {
   };
 
   const handleBreadcrumbClick = (pdf) => {
-    console.log(pdf)
     setFile(pdf)
     setPopupVisible(false);
+    setOpenChat(false)
   }
 
   const handleTakeTest = () => {
+    Navigate('/generate-test')
     setPopupVisible(false);
 
   }
 
   const handleExplain = () => {
-    setOpenChat(true)
-    setPopupVisible(false);
+      setOpenChat(true)
+      setPopupVisible(false);
+  }
+
+  const onLoadProgress = () => {
+    setIsLoading(true)
   }
 
   return (
@@ -181,6 +189,7 @@ export default function Sample() {
           </button>
         </div>
         <div
+        style={{ visibility: isLoading ? 'hidden' : 'visible' }}
           className="Example__container__document"
           ref={setContainerRef}
           onMouseUp={handleTextSelection}
@@ -188,6 +197,7 @@ export default function Sample() {
           <Document
             file={file.file}
             onLoadSuccess={onDocumentLoadSuccess}
+            onLoadProgress={onLoadProgress}
             options={options}
           >
             {Array.from(new Array(numPages), (_el, index) => (

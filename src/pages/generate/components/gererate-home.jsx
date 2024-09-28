@@ -23,7 +23,7 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
   return (
     <div className="flex flex-col items-center min-w-[864px]">
       <div className="text-[40px] font-medium clash-display">
-        Generate your question paper.
+      How is your preparation progressing?
       </div>
       <div className="text-[20px] font-light mt-3 text-center">
         Mars offers personalised tutoring based on a calculated
@@ -71,16 +71,13 @@ const GenerateHome = ({ conversations, onClick, onEventClick }) => {
 
       <div className="flex items-center gap-4 !text-gray-200 mt-[14px] text-base max-w-[70vw] min-w-[864px] w-full">
         <div className=" border text-left border-[#403B38] text-[#bebebe] w-1/3 rounded-[8px] p-4">
-          Make me a mock test for physics to prepare for JEE Mains. Time limit
-          is 30 min with 30 questions
+          Make me a mock test for physics to prepare for JEE Mains with a 30-minute time limit.
         </div>
         <div className=" border text-left border-[#403B38] text-[#bebebe] w-1/3 rounded-[8px] p-4">
-          Make me a mock test for physics to prepare for JEE Mains. Time limit
-          is 30 min with 30 questions
+        Design a 20-question mock test for UPSC History, with a 30-minute time limit.
         </div>
-        <div className=" border text-left border-[#403B38] text-[#bebebe] w-1/3 rounded-[8px] p-4">
-          Make me a mock test for physics to prepare for JEE Mains. Time limit
-          is 30 min with 30 questions
+        <div className=" border text-left border-[#403B38] text-[#40bebebe3B38] w-1/3 rounded-[8px] p-4">
+        Create a mock test for UPSC Geography, to be completed in 30 minutes. 
         </div>
       </div>
     </div>

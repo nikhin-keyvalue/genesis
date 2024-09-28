@@ -4,8 +4,10 @@ import PerformanceFeedback from "./components/OverallAnalysis";
 import QuestionInsights from "./components/QuestionInsights";
 import "./styles.css";
 import Chat from "../../components/chat";
+import { useNavigate } from "react-router-dom";
 
 const Insights = () => {
+  const navigate = useNavigate();
   const [openChat, setOpenChat] = useState(false);
   const answeredData = JSON.parse(localStorage.getItem("submitedData"));
   const testSummary = JSON.parse(localStorage.getItem("testSummary"));
@@ -14,14 +16,19 @@ const Insights = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
 
+  const navigateToCuratedCurriculum = () => {
+    navigate("/curated-curriculum");
+  }
+
   return (
     <div className="w-full h-full p-24 flex gap-4">
       <div className="h-full flex flex-col gap-8">
         <OverAllAccuracy
           accuracy={accuracyData.totalAccuracy}
-          percentile="86.23"
+          percentile="65.3"
         />
         <PerformanceFeedback
+          handleBtn={navigateToCuratedCurriculum}
           categorySplit={accuracyData.categoryAccuracy}
           performanceComment={
             testSummary?.properties?.overall_feedback?.description ||
